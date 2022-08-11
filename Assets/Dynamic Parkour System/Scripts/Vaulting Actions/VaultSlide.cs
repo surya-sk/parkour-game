@@ -63,7 +63,7 @@ namespace Climbing
                             controller.characterAnimation.animator.CrossFade("Running Slide", 0.05f);
                             dis = 4 / Vector3.Distance(startPos, targetPos);
                             controller.characterAnimation.animator.SetFloat("AnimSpeed", dis);
-                            controller.characterAnimation.switchCameras.SlideCam();
+                            controller.characterAnimation.switchCameras.SwitchToSlideCam();
 
                             startPos = controller.transform.position;
                             startRot = controller.transform.rotation;
@@ -96,7 +96,7 @@ namespace Climbing
                 if (vaultTime > 1)
                 {
                     controller.characterAnimation.animator.SetFloat("AnimSpeed",1);
-                    controller.characterAnimation.switchCameras.FreeLookCam();
+                    controller.characterAnimation.switchCameras.SwitchToFreeLook();
                     controller.EnableController();
                 }
                 else

@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Pole
+  - Reach
+  - Vault
+  - Deep Jump
+  - Slide
+  - Horse
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -25,7 +32,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Animal
   - 
   - 
   - 

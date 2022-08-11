@@ -37,23 +37,26 @@ namespace Climbing
             Slide
         }
 
-        CameraType curCam = CameraType.None;
+        CameraType currentCam = CameraType.None;
 
-        [SerializeField] private CinemachineFreeLook FreeLook;
-        [SerializeField] private CinemachineVirtualCamera Slide;
+        [SerializeField] 
+        private CinemachineFreeLook FreeLook;
+
+        [SerializeField] 
+        private CinemachineVirtualCamera Slide;
 
 
         void Start()
         {
             animator = GetComponent<Animator>();
 
-            FreeLookCam();
+            SwitchToFreeLook();
         }
 
         //Switches To FreeLook Cam
-        public void FreeLookCam()
+        public void SwitchToFreeLook()
         {
-            if (curCam != CameraType.Freelook)
+            if (currentCam != CameraType.Freelook)
             {
                 Slide.Priority = 0;
                 FreeLook.Priority = 1;
@@ -61,9 +64,9 @@ namespace Climbing
         }
 
         //Switches To Slide Cam
-        public void SlideCam()
+        public void SwitchToSlideCam()
         {
-            if (curCam != CameraType.Slide)
+            if (currentCam != CameraType.Slide)
             {
                 FreeLook.Priority = 0;
                 Slide.Priority = 1;
