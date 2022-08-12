@@ -4,6 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Stair
+  - Climb
+  - Fly
   - Pole
   - Reach
   - Vault
@@ -11,6 +14,7 @@ TagManager:
   - Slide
   - Horse
   - Water
+  - Animal
   layers:
   - Default
   - TransparentFX
@@ -35,14 +39,14 @@ TagManager:
   - Animal
   - 
   - 
+  - Enemy
   - 
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
+  - Item
   - 
   m_SortingLayers:
   - name: Default
