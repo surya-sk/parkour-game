@@ -30,6 +30,10 @@ namespace MalbersAnimations.HAP
         /// <summary>The Local Direction of the Mount Trigger compared with the animal</summary>
         public Vector3Reference Direction;
 
+        public GameObject PlayerModel;
+        public GameObject Rider;
+        public GameObject RiderFreeLookCam;
+
         public TransformAnimation Adjustment;
       // Mountable Montura;
         Mount Montura;
@@ -46,6 +50,14 @@ namespace MalbersAnimations.HAP
         void OnTriggerEnter(Collider other)
         {
             if (!gameObject.activeInHierarchy ||  other.isTrigger) return; // Do not allow triggers
+            if(other.gameObject.tag == "Player")
+            {
+                PlayerModel.SetActive(false);
+                Rider.transform.position = PlayerModel.transform.position;
+                Rider.transform.rotation = PlayerModel.transform.rotation;
+                RiderFreeLookCam.SetActive(true);
+                Rider.SetActive(true);
+            }
             GetAnimal(other);
         }
         
@@ -60,10 +72,10 @@ namespace MalbersAnimations.HAP
             if (!Montura.Mounted && Montura.CanBeMounted)                       //If there's no other Rider on the Animal or the the Animal isn't death
             {
                 rider = other.FindComponent<MRider>();
+                Debug.Log("Rider");
 
                 if (rider != null)
                 {
-                    Debug.Log("Hello");
                     if (rider.IsRiding) return;     //Means the Rider is already mounting an animal
 
                     rider.MountTriggerEnter(Montura,this); //Set Everything Requiered on the Rider in order to Mount
