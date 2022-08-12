@@ -46,7 +46,6 @@ namespace MalbersAnimations.HAP
         void OnTriggerEnter(Collider other)
         {
             if (!gameObject.activeInHierarchy ||  other.isTrigger) return; // Do not allow triggers
-
             GetAnimal(other);
         }
         
@@ -64,6 +63,7 @@ namespace MalbersAnimations.HAP
 
                 if (rider != null)
                 {
+                    Debug.Log("Hello");
                     if (rider.IsRiding) return;     //Means the Rider is already mounting an animal
 
                     rider.MountTriggerEnter(Montura,this); //Set Everything Requiered on the Rider in order to Mount
