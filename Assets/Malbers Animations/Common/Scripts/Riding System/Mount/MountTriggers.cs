@@ -58,21 +58,8 @@ namespace MalbersAnimations.HAP
                 Rider.transform.rotation = PlayerModel.transform.rotation;
                 RiderFreeLookCam.SetActive(true);
                 Rider.SetActive(true);
-                rider = other.FindComponent<MRider>();
-
-                if (rider != null)
-                {
-                    Debug.Log("Rider");
-                    if (rider.IsRiding) return;     //Means the Rider is already mounting an animal
-
-                    rider.MountTriggerEnter(Montura, this); //Set Everything Requiered on the Rider in order to Mount
-
-                    if (AutoMount.Value && !WasAutomounted)
-                    {
-                        rider.MountAnimal();
-                    }
-                }
-                //GetAnimal(other);
+                
+                GetAnimal(other);
             }
         }
         
@@ -109,7 +96,9 @@ namespace MalbersAnimations.HAP
         {
             if (other.isTrigger) return; // Do not allow triggers
 
-            rider = other.FindComponent<MRider>();
+            if(other.gameObject.tag != "Animal")
+            {
+                rider = other.FindComponent<MRider>();
           
 
             if (rider != null && other.gameObject.tag != "Player")
@@ -123,15 +112,13 @@ namespace MalbersAnimations.HAP
 
                 //rider = null;
                 if (WasAutomounted) WasAutomounted = false;
-                if(rider)
-                {
-                    Debug.Log("Dismounting rider");
-                    Rider.SetActive(false);
-                    RiderFreeLookCam.SetActive(false);
-                    PlayerModel.transform.position = Rider.transform.position;
-                    PlayerModel.transform.rotation = Rider.transform.rotation;
-                    PlayerModel.SetActive(true);
-                }
+                Debug.Log("Dismounting rider");
+                Rider.SetActive(false);
+                RiderFreeLookCam.SetActive(false);
+                PlayerModel.transform.position = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
+                PlayerModel.transform.rotation = this.transform.rotation;
+                PlayerModel.SetActive(true);
+            }
             }
         }
     }
