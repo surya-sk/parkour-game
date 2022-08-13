@@ -50,15 +50,30 @@ namespace MalbersAnimations.HAP
         void OnTriggerEnter(Collider other)
         {
             if (!gameObject.activeInHierarchy ||  other.isTrigger) return; // Do not allow triggers
-            if(other.gameObject.tag == "Player")
+            
+            if(other.gameObject.tag == "Player" || other.gameObject.tag == "Animal")
             {
                 PlayerModel.SetActive(false);
                 Rider.transform.position = PlayerModel.transform.position;
                 Rider.transform.rotation = PlayerModel.transform.rotation;
                 RiderFreeLookCam.SetActive(true);
                 Rider.SetActive(true);
+                rider = other.FindComponent<MRider>();
+
+                if (rider != null)
+                {
+                    Debug.Log("Rider");
+                    if (rider.IsRiding) return;     //Means the Rider is already mounting an animal
+
+                    rider.MountTriggerEnter(Montura, this); //Set Everything Requiered on the Rider in order to Mount
+
+                    if (AutoMount.Value && !WasAutomounted)
+                    {
+                        rider.MountAnimal();
+                    }
+                }
+                //GetAnimal(other);
             }
-            GetAnimal(other);
         }
         
 
@@ -106,14 +121,17 @@ namespace MalbersAnimations.HAP
                     rider.MountTriggerExit();
                 }
 
-                rider = null;
+                //rider = null;
                 if (WasAutomounted) WasAutomounted = false;
-                Debug.Log("Dismounting rider");
-                Rider.SetActive(false);
-                RiderFreeLookCam.SetActive(false);
-                PlayerModel.transform.position = Rider.transform.position;
-                PlayerModel.transform.rotation = Rider.transform.rotation;
-                PlayerModel.SetActive(true);
+                if(rider)
+                {
+                    Debug.Log("Dismounting rider");
+                    Rider.SetActive(false);
+                    RiderFreeLookCam.SetActive(false);
+                    PlayerModel.transform.position = Rider.transform.position;
+                    PlayerModel.transform.rotation = Rider.transform.rotation;
+                    PlayerModel.SetActive(true);
+                }
             }
         }
     }
