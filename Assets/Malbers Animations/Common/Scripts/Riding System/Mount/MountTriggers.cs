@@ -55,7 +55,7 @@ namespace MalbersAnimations.HAP
             {
                 yield return null;
                 PlayerModel.SetActive(false);
-                Rider.transform.position = PlayerModel.transform.position;
+                Rider.transform.position = new Vector3(transform.position.x + 0.5f, PlayerModel.transform.position.y, transform.position.z); ;
                 Rider.transform.rotation = PlayerModel.transform.rotation;
                 RiderFreeLookCam.SetActive(true);
                 Rider.SetActive(true);
@@ -114,7 +114,7 @@ namespace MalbersAnimations.HAP
                     if (WasAutomounted) WasAutomounted = false;
                     Rider.SetActive(false);
                     RiderFreeLookCam.SetActive(false);
-                    PlayerModel.transform.position = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
+                    PlayerModel.transform.position = new Vector3(transform.position.x + 2, PlayerModel.transform.position.y, transform.position.z);
                     PlayerModel.transform.rotation = this.transform.rotation;
                     PlayerModel.SetActive(true);
                 }
