@@ -47,20 +47,21 @@ namespace MalbersAnimations.HAP
             Montura = GetComponentInParent<Mount>(); //Get the Mountable in the parents
         }
 
-        void OnTriggerEnter(Collider other)
+        IEnumerator OnTriggerEnter(Collider other)
         {
-            if (!gameObject.activeInHierarchy ||  other.isTrigger) return; // Do not allow triggers
+            if (!gameObject.activeInHierarchy ||  other.isTrigger) yield return null; // Do not allow triggers
             
-            if(other.gameObject.tag == "Player" || other.gameObject.tag == "Animal")
+            if(other.gameObject.tag == "Player")
             {
+                yield return null;
                 PlayerModel.SetActive(false);
                 Rider.transform.position = PlayerModel.transform.position;
                 Rider.transform.rotation = PlayerModel.transform.rotation;
                 RiderFreeLookCam.SetActive(true);
                 Rider.SetActive(true);
                 
-                GetAnimal(other);
             }
+            GetAnimal(other);
         }
         
 
@@ -101,24 +102,24 @@ namespace MalbersAnimations.HAP
                 rider = other.FindComponent<MRider>();
           
 
-            if (rider != null && other.gameObject.tag != "Player")
-            {
-                if (rider.IsMountingDismounting) return;                                         //You Cannot Mount if you are already mounted
-
-                if (rider.MountTrigger == this && !Montura.Mounted)                 //When exiting if we are exiting From the Same Mount Trigger means that there's no mountrigger Nearby
+                if (rider != null && other.gameObject.tag != "Player")
                 {
-                    rider.MountTriggerExit();
-                }
+                    if (rider.IsMountingDismounting) return;                                         //You Cannot Mount if you are already mounted
 
-                //rider = null;
-                if (WasAutomounted) WasAutomounted = false;
-                Debug.Log("Dismounting rider");
-                Rider.SetActive(false);
-                RiderFreeLookCam.SetActive(false);
-                PlayerModel.transform.position = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
-                PlayerModel.transform.rotation = this.transform.rotation;
-                PlayerModel.SetActive(true);
-            }
+                    if (rider.MountTrigger == this && !Montura.Mounted)                 //When exiting if we are exiting From the Same Mount Trigger means that there's no mountrigger Nearby
+                    {
+                        rider.MountTriggerExit();
+                    }
+
+                    //rider = null;
+                    if (WasAutomounted) WasAutomounted = false;
+                    Debug.Log("Dismounting rider");
+                    Rider.SetActive(false);
+                    RiderFreeLookCam.SetActive(false);
+                    PlayerModel.transform.position = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
+                    PlayerModel.transform.rotation = this.transform.rotation;
+                    PlayerModel.SetActive(true);
+                }
             }
         }
     }
