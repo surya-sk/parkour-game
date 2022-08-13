@@ -78,7 +78,6 @@ namespace MalbersAnimations.HAP
 
                 if (rider != null)
                 {
-                    Debug.Log("Rider");
                     if (rider.IsRiding) return;     //Means the Rider is already mounting an animal
 
                     rider.MountTriggerEnter(Montura,this); //Set Everything Requiered on the Rider in order to Mount
@@ -113,7 +112,6 @@ namespace MalbersAnimations.HAP
 
                     //rider = null;
                     if (WasAutomounted) WasAutomounted = false;
-                    Debug.Log("Dismounting rider");
                     Rider.SetActive(false);
                     RiderFreeLookCam.SetActive(false);
                     PlayerModel.transform.position = new Vector3(transform.position.x + 2, transform.position.y, transform.position.z);
