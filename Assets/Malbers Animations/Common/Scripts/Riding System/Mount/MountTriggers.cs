@@ -72,10 +72,10 @@ namespace MalbersAnimations.HAP
             if (!Montura.Mounted && Montura.CanBeMounted)                       //If there's no other Rider on the Animal or the the Animal isn't death
             {
                 rider = other.FindComponent<MRider>();
-                Debug.Log("Rider");
 
                 if (rider != null)
                 {
+                    Debug.Log("Rider");
                     if (rider.IsRiding) return;     //Means the Rider is already mounting an animal
 
                     rider.MountTriggerEnter(Montura,this); //Set Everything Requiered on the Rider in order to Mount
@@ -97,7 +97,7 @@ namespace MalbersAnimations.HAP
             rider = other.FindComponent<MRider>();
           
 
-            if (rider != null)
+            if (rider != null && other.gameObject.tag != "Player")
             {
                 if (rider.IsMountingDismounting) return;                                         //You Cannot Mount if you are already mounted
 
@@ -108,8 +108,13 @@ namespace MalbersAnimations.HAP
 
                 rider = null;
                 if (WasAutomounted) WasAutomounted = false;
+                Debug.Log("Dismounting rider");
+                Rider.SetActive(false);
+                RiderFreeLookCam.SetActive(false);
+                PlayerModel.transform.position = Rider.transform.position;
+                PlayerModel.transform.rotation = Rider.transform.rotation;
+                PlayerModel.SetActive(true);
             }
-
         }
     }
 }
