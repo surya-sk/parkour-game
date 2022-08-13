@@ -9963,8 +9963,8 @@ MonoBehaviour:
       UseConstant: 0
       ConstantValue: 1
       Variable: {fileID: 11400000, guid: 1135ac854b3e61e498718248dd6a7b81, type: 2}
-    type: 1
-    input: InputValue
+    type: 0
+    input: Fire3
     key: 50
     GetPressed: 1
     InputValue: 0
@@ -10185,7 +10185,7 @@ MonoBehaviour:
       UseConstant: 0
       ConstantValue: 1
       Variable: {fileID: 11400000, guid: e44ea26080b5a4348908b0711d43b082, type: 2}
-    type: 1
+    type: 0
     input: Mount
     key: 102
     GetPressed: 3
@@ -10279,7 +10279,7 @@ MonoBehaviour:
       UseConstant: 0
       ConstantValue: 1
       Variable: {fileID: 11400000, guid: 9c5a83571f2ebf346b6e6fe49efddaa6, type: 2}
-    type: 1
+    type: 0
     input: Mount
     key: 102
     GetPressed: 1
