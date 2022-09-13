@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace ParkourGame.Enemy
 {
+    /// <summary>
+    /// Controls AI of enemies
+    /// </summary>
     public class AI : MonoBehaviour
     {
         private Animator m_Animator;
