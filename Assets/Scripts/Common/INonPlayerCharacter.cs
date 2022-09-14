@@ -24,7 +24,10 @@ namespace ParkourGame.Common
         /// <returns></returns>
         void Patrol(NavMeshAgent agent, List<Transform> patrolPoints);
 
-        void PatrolPointReached();
+        /// <summary>
+        /// Actions to perform after a patrol point has been reached. To be called by an event
+        /// </summary>
+        IEnumerator PatrolPointReached();
 
         /// <summary>
         /// Face the agent in the direction of the target

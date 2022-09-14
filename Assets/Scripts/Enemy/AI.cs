@@ -23,8 +23,7 @@ namespace ParkourGame.Enemy
         private int m_CurrentPatrolIndex;
         private bool b_PatrolComplete;
         private bool b_Patrolling;
-
-        event PatrolPointReached m_PatrolPointReached;
+        private bool b_PatrolPointReached;
 
         /// <summary>
         /// Face the target, either the next waypoint or the player
@@ -47,6 +46,7 @@ namespace ParkourGame.Enemy
             FaceTarget(destination);
             try
             {
+                m_Animator.Rebind();
                 m_Animator.SetTrigger("Move");
                 m_NavMeshAgent.SetDestination(destination.position);
             }
@@ -54,11 +54,6 @@ namespace ParkourGame.Enemy
             {
                 Debug.LogError($"Could not move {gameObject.name}. {ex.Message}\n{ex.StackTrace}");
             }
-        }
-
-        protected virtual void OnPatrolPointReached()
-        {
-            m_PatrolPointReached?.Invoke();
         }
 
         public void Patrol(NavMeshAgent agent, List<Transform> patrolPoints)
@@ -88,7 +83,7 @@ namespace ParkourGame.Enemy
             }
             else
             {
-                m_PatrolPointReached += PatrolPointReached;
+                //m_PatrolPointReached += PatrolPointReached;
                 m_CurrentPatrolIndex = 0;
             }
 
@@ -103,15 +98,22 @@ namespace ParkourGame.Enemy
         {
             if(b_Patrolling)
             {
-                if(Vector3.Distance(transform.position, PatrolPoints[m_CurrentPatrolIndex].position) < 1.0)
+                if(Vector3.Distance(transform.position, PatrolPoints[m_CurrentPatrolIndex].position) < 1.0 && !b_PatrolPointReached)
                 {
-                    OnPatrolPointReached();
+                    b_PatrolPointReached = true;
+                    StartCoroutine(PatrolPointReached());
                 }
             }
         }
 
-        public void PatrolPointReached()
+        /// <summary>
+        /// Either ends the patrol, or restarts it
+        /// </summary>
+        public IEnumerator PatrolPointReached()
         {
+            m_Animator.Rebind();
+            m_Animator.SetTrigger("Idle");
+            yield return new WaitForSeconds(2.0f);
             if (m_CurrentPatrolIndex == PatrolPoints.Count - 1)
             {
                 if (LoopPatrolPoints)
@@ -130,8 +132,10 @@ namespace ParkourGame.Enemy
             m_CurrentPatrolIndex++;
             if(!b_PatrolComplete)
             {
+                b_PatrolPointReached = false;
                 Patrol(m_NavMeshAgent, PatrolPoints);
             }
+            yield return new WaitForSeconds(0);
         }
     }
 }
