@@ -22,7 +22,9 @@ namespace ParkourGame.Common
         /// </summary>
         /// <param name="agent"></param>
         /// <returns></returns>
-        IEnumerator Patrol(NavMeshAgent agent, List<Transform> patrolPoints);
+        void Patrol(NavMeshAgent agent, List<Transform> patrolPoints);
+
+        void PatrolPointReached();
 
         /// <summary>
         /// Face the agent in the direction of the target

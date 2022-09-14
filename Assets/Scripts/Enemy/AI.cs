@@ -7,6 +7,7 @@ using System;
 
 namespace ParkourGame.Enemy
 {
+    public delegate void PatrolPointReached();
     /// <summary>
     /// Controls AI of enemies
     /// </summary>
@@ -19,6 +20,11 @@ namespace ParkourGame.Enemy
 
         private Animator m_Animator;
         private NavMeshAgent m_NavMeshAgent;
+        private int m_CurrentPatrolIndex;
+        private bool b_PatrolComplete;
+        private bool b_Patrolling;
+
+        event PatrolPointReached m_PatrolPointReached;
 
         /// <summary>
         /// Face the target, either the next waypoint or the player
@@ -50,9 +56,15 @@ namespace ParkourGame.Enemy
             }
         }
 
-        public IEnumerator Patrol(NavMeshAgent agent, List<Transform> patrolPoints)
+        protected virtual void OnPatrolPointReached()
         {
-            throw new System.NotImplementedException();
+            m_PatrolPointReached?.Invoke();
+        }
+
+        public void Patrol(NavMeshAgent agent, List<Transform> patrolPoints)
+        {
+            b_Patrolling = true;
+            Move(agent,patrolPoints[m_CurrentPatrolIndex]);
         }
 
         // Start is called before the first frame update
@@ -74,12 +86,52 @@ namespace ParkourGame.Enemy
             {
                 Debug.LogError($"{gameObject.name} - No patrol points found!!");
             }
+            else
+            {
+                m_PatrolPointReached += PatrolPointReached;
+                m_CurrentPatrolIndex = 0;
+            }
+
+            if(PatrolOnStart)
+            {
+                Patrol(m_NavMeshAgent, PatrolPoints);
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
+            if(b_Patrolling)
+            {
+                if(Vector3.Distance(transform.position, PatrolPoints[m_CurrentPatrolIndex].position) < 1.0)
+                {
+                    OnPatrolPointReached();
+                }
+            }
+        }
 
+        public void PatrolPointReached()
+        {
+            if (m_CurrentPatrolIndex == PatrolPoints.Count - 1)
+            {
+                if (LoopPatrolPoints)
+                {
+                    b_PatrolComplete = false;
+                    m_CurrentPatrolIndex = -1;
+                }
+                else
+                {
+                    b_PatrolComplete = true;
+                    Debug.Log($"{gameObject.name} - Patrol complete");
+                }
+                b_Patrolling = !b_PatrolComplete;
+            }
+
+            m_CurrentPatrolIndex++;
+            if(!b_PatrolComplete)
+            {
+                Patrol(m_NavMeshAgent, PatrolPoints);
+            }
         }
     }
 }
