@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ParkourGame.Common;
 using UnityEngine.AI;
+using System;
 
 namespace ParkourGame.Enemy
 {
@@ -23,16 +24,30 @@ namespace ParkourGame.Enemy
         /// Face the target, either the next waypoint or the player
         /// </summary>
         /// <param name="target"></param>
-        public void FaceTarget(GameObject target)
+        public void FaceTarget(Transform target)
         {
-            Vector3 _direction = (target.transform.position - transform.position).normalized;
+            Vector3 _direction = (target.position - transform.position).normalized;
             Quaternion _lookRotation = Quaternion.LookRotation(new Vector3(_direction.x, 0, _direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime);
         }
 
-        public IEnumerator Move(NavMeshAgent agent, Transform destination)
+        /// <summary>
+        /// Moves the enenmy to the destination
+        /// </summary>
+        /// <param name="agent"></param>
+        /// <param name="destination"></param>
+        public void Move(NavMeshAgent agent, Transform destination)
         {
-            throw new System.NotImplementedException();
+            FaceTarget(destination);
+            try
+            {
+                m_Animator.SetTrigger("Move");
+                m_NavMeshAgent.SetDestination(destination.position);
+            }
+            catch(Exception ex)
+            {
+                Debug.LogError($"Could not move {gameObject.name}. {ex.Message}\n{ex.StackTrace}");
+            }
         }
 
         public IEnumerator Patrol(NavMeshAgent agent, List<Transform> patrolPoints)

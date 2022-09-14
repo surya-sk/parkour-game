@@ -15,7 +15,7 @@ namespace ParkourGame.Common
         /// </summary>
         /// <param name="agent"></param>
         /// <returns></returns>
-        IEnumerator Move(NavMeshAgent agent, Transform destination);
+        void Move(NavMeshAgent agent, Transform destination);
 
         /// <summary>
         /// Moves the agent through the patrol points
@@ -28,6 +28,6 @@ namespace ParkourGame.Common
         /// Face the agent in the direction of the target
         /// </summary>
         /// <param name="target"></param>
-        void FaceTarget(GameObject target);
+        void FaceTarget(Transform target);
     }
 }
