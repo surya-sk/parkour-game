@@ -4,6 +4,7 @@ using UnityEngine;
 using ParkourGame.Common;
 using UnityEngine.AI;
 using System;
+using Random = UnityEngine.Random;
 
 namespace ParkourGame.Enemy
 {
@@ -17,6 +18,7 @@ namespace ParkourGame.Enemy
         public List<Transform> PatrolPoints;
         public bool PatrolOnStart;
         public bool LoopPatrolPoints;
+        public float WaitTimeAtPatrolPoint = 2.0f;
 
         private Animator m_Animator;
         private NavMeshAgent m_NavMeshAgent;
@@ -113,7 +115,7 @@ namespace ParkourGame.Enemy
         {
             m_Animator.Rebind();
             m_Animator.SetTrigger("Idle");
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(Random.Range(WaitTimeAtPatrolPoint - 1, WaitTimeAtPatrolPoint + 3));
             if (m_CurrentPatrolIndex == PatrolPoints.Count - 1)
             {
                 if (LoopPatrolPoints)
