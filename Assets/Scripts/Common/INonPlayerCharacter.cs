@@ -23,5 +23,11 @@ namespace ParkourGame.Common
         /// <param name="agent"></param>
         /// <returns></returns>
         IEnumerator Patrol(NavMeshAgent agent, List<Transform> patrolPoints);
+
+        /// <summary>
+        /// Face the agent in the direction of the target
+        /// </summary>
+        /// <param name="target"></param>
+        void FaceTarget(GameObject target);
     }
 }
