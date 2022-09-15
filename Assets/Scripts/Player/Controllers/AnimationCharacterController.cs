@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ParkourGame.Parkour.Climbing;
 
-namespace ParkourGame.Controllers
+namespace ParkourGame.Player.Controllers
 {
     [RequireComponent(typeof(ThirdPersonController))]
     [RequireComponent(typeof(Animator))]

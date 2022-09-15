@@ -23,6 +23,7 @@ using UnityEngine;
 using System;
 using UnityEditor;
 using ParkourGame.Parkour.Climbing;
+using Action = ParkourGame.Parkour.Climbing.Action;
 
 namespace ParkourGame.Player.Controllers
 {
