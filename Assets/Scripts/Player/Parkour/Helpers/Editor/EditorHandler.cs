@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Climbing
+namespace ParkourGame.Parkour.Climbing
 {
     [CustomEditor(typeof(DrawLine))]
     public class EditorVis : Editor
