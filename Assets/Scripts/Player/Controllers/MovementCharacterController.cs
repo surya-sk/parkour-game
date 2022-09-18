@@ -23,7 +23,7 @@ using UnityEngine;
 
 namespace ParkourGame.Player.Controllers
 {
-    public enum MovementState { Walking, Running }
+    public enum MovementState { Walking, Running, Crouching }
 
     [RequireComponent(typeof(ThirdPersonController))]
     public class MovementCharacterController : MonoBehaviour
@@ -51,6 +51,7 @@ namespace ParkourGame.Player.Controllers
         public float walkSpeed;
         public float JogSpeed;
         public float RunSpeed;
+        public float crouchSpeed;
         public float fallForce;
 
         [Header("Feet IK")]
