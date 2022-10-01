@@ -12,6 +12,8 @@ namespace ParkourGame.Player.Controllers
         public GameObject PlayerModel;
         public GameObject StealthPlayerModel;
 
+        private bool m_IsCrouched;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -25,8 +27,22 @@ namespace ParkourGame.Player.Controllers
         void Update()
         {
             bool _isCrouched = Input.GetAxis("Crouch") == 1;
-            PlayerModel.SetActive(!_isCrouched);
-            StealthPlayerModel.SetActive(_isCrouched);
+            if(m_IsCrouched != _isCrouched)
+            {
+                m_IsCrouched = _isCrouched;
+                PlayerModel.SetActive(!_isCrouched);
+                StealthPlayerModel.SetActive(_isCrouched);
+                if (!m_IsCrouched) // means player just stopped crouching
+                {
+                    PlayerModel.transform.position = StealthPlayerModel.transform.position;
+                    PlayerModel.transform.rotation = StealthPlayerModel.transform.rotation;
+                }
+                else 
+                {
+                    StealthPlayerModel.transform.position = PlayerModel.transform.position;
+                    StealthPlayerModel.transform.rotation = PlayerModel.transform.rotation;
+                }
+            }
         }
     }
 
