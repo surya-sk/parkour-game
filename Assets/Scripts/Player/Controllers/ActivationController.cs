@@ -37,7 +37,7 @@ namespace ParkourGame.Player.Controllers
                     PlayerModel.transform.position = StealthPlayerModel.transform.position;
                     PlayerModel.transform.rotation = StealthPlayerModel.transform.rotation;
                 }
-                else 
+                else
                 {
                     StealthPlayerModel.transform.position = PlayerModel.transform.position;
                     StealthPlayerModel.transform.rotation = PlayerModel.transform.rotation;
