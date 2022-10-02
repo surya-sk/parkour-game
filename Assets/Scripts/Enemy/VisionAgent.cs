@@ -10,10 +10,19 @@ namespace ParkourGame.Enemy
         public float VisionAngle = 30f;
         public Transform Target;
 
+        private AI AI;
+
+        private void Awake()
+        {
+            AI = GetComponent<AI>();
+        }
+
         // Update is called once per frame
         void Update()
         {
             if(!IsInRange()) { return; }
+            if(!CheckAngle()) { return; }   
+
 
         }
 

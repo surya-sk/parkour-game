@@ -139,5 +139,15 @@ namespace ParkourGame.Enemy
             }
             yield return new WaitForSeconds(0);
         }
+
+        private void OnDectected()
+        {
+
+        }
+
+        private void OnUndetected()
+        {
+
+        }
     }
 }
