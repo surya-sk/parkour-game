@@ -19,6 +19,7 @@ namespace ParkourGame.Enemy
         public bool PatrolOnStart;
         public bool LoopPatrolPoints;
         public float WaitTimeAtPatrolPoint = 2.0f;
+        public Transform Player;
 
         private Animator m_Animator;
         private NavMeshAgent m_NavMeshAgent;
@@ -26,6 +27,56 @@ namespace ParkourGame.Enemy
         private bool b_PatrolComplete;
         private bool b_Patrolling;
         private bool b_PatrolPointReached;
+        private bool b_Detected;
+        private VisionAgent m_VisionAgent;
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            m_Animator = GetComponent<Animator>();
+            if (m_Animator == null)
+            {
+                Debug.LogError($"Enemy {gameObject.name} animator not found!!");
+            }
+
+            m_NavMeshAgent = GetComponent<NavMeshAgent>();
+            if (m_NavMeshAgent == null)
+            {
+                Debug.LogError($"Enemy {gameObject.name} navmeshagent not found!!");
+            }
+
+            m_VisionAgent = GetComponent<VisionAgent>();
+            m_VisionAgent.OnDetected += OnPlayerDetected;
+            m_VisionAgent.OnUndetected += OnLoseDetection;
+
+            if (PatrolPoints == null || PatrolPoints.Count < 1)
+            {
+                Debug.LogError($"{gameObject.name} - No patrol points found!!");
+            }
+            else
+            {
+                //m_PatrolPointReached += PatrolPointReached;
+                m_CurrentPatrolIndex = 0;
+            }
+
+            if (PatrolOnStart)
+            {
+                Patrol(m_NavMeshAgent, PatrolPoints);
+            }
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (b_Patrolling)
+            {
+                if (Vector3.Distance(transform.position, PatrolPoints[m_CurrentPatrolIndex].position) < 1.0 && !b_PatrolPointReached)
+                {
+                    b_PatrolPointReached = true;
+                    StartCoroutine(PatrolPointReached());
+                }
+            }
+        }
 
         /// <summary>
         /// Face the target, either the next waypoint or the player
@@ -58,53 +109,18 @@ namespace ParkourGame.Enemy
             }
         }
 
+        #region Patrol
+        /// <summary>
+        /// Begins patrol
+        /// </summary>
+        /// <param name="agent"></param>
+        /// <param name="patrolPoints"></param>
         public void Patrol(NavMeshAgent agent, List<Transform> patrolPoints)
         {
-            b_Patrolling = true;
-            Move(agent,patrolPoints[m_CurrentPatrolIndex]);
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            m_Animator = GetComponent<Animator>();
-            if(m_Animator == null)
+            if(!b_Detected)
             {
-                Debug.LogError($"Enemy {gameObject.name} animator not found!!");
-            }
-
-            m_NavMeshAgent = GetComponent<NavMeshAgent>();
-            if(m_NavMeshAgent == null)
-            {
-                Debug.LogError($"Enemy {gameObject.name} navmeshagent not found!!");
-            }
-            
-            if(PatrolPoints == null || PatrolPoints.Count < 1)
-            {
-                Debug.LogError($"{gameObject.name} - No patrol points found!!");
-            }
-            else
-            {
-                //m_PatrolPointReached += PatrolPointReached;
-                m_CurrentPatrolIndex = 0;
-            }
-
-            if(PatrolOnStart)
-            {
-                Patrol(m_NavMeshAgent, PatrolPoints);
-            }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if(b_Patrolling)
-            {
-                if(Vector3.Distance(transform.position, PatrolPoints[m_CurrentPatrolIndex].position) < 1.0 && !b_PatrolPointReached)
-                {
-                    b_PatrolPointReached = true;
-                    StartCoroutine(PatrolPointReached());
-                }
+                b_Patrolling = true;
+                Move(agent, patrolPoints[m_CurrentPatrolIndex]);
             }
         }
 
@@ -138,6 +154,21 @@ namespace ParkourGame.Enemy
                 Patrol(m_NavMeshAgent, PatrolPoints);
             }
             yield return new WaitForSeconds(0);
+        }
+        #endregion
+
+        public void OnPlayerDetected()
+        {
+            b_Detected = true;
+            b_Patrolling = false;
+            Move(m_NavMeshAgent, Player);
+        }
+
+        public void OnLoseDetection()
+        {
+            b_Detected = false;
+            //TODO: Have some sort of last known position
+            Patrol(m_NavMeshAgent, PatrolPoints);
         }
     }
 }
