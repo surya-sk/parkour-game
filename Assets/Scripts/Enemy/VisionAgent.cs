@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,21 +10,16 @@ namespace ParkourGame.Enemy
         public float VisionRange = 5f;
         public float VisionAngle = 30f;
         public Transform Target;
-
-        private AI AI;
-
-        private void Awake()
-        {
-            AI = GetComponent<AI>();
-        }
+        public Action OnDetected;
+        public Action OnUndetected;
 
         // Update is called once per frame
         void Update()
         {
-            if(!IsInRange()) { return; }
-            if(!CheckAngle()) { return; }   
+            if(!IsInRange()) { OnUndetected?.Invoke(); return; }
+            if(!CheckAngle()) { OnUndetected?.Invoke(); return; }   
 
-
+            OnDetected?.Invoke();
         }
 
         /// <summary>
