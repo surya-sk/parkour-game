@@ -1,4 +1,5 @@
 using ParkourGame.Player.Controllers;
+using ParkourGame.Player.Stealth;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace ParkourGame.Enemy
         public Transform Player;
         public Transform CrouchedPlayer;
         public ActivationController ActivationController;
+        public Transform LineOfSightPivot;
+
         public Action OnDetected;
         public Action OnUndetected;
 
@@ -31,25 +34,31 @@ namespace ParkourGame.Enemy
         {
             if(!IsInRange())
             {
-                if(b_Detected)
-                {
-                    b_Detected = false;
-                    OnUndetected?.Invoke();
-                }
+                Undetected();
                 return;
             }
-            if(!CheckAngle()) 
+            if (!PlayerInAngle()) 
             {
-                if(b_Detected)
-                {
-                    b_Detected = false;
-                    OnUndetected?.Invoke();
-                }
+                Undetected();
+                return;
+            }
+            if(!PlayerInLineOfSight())
+            {
+                Undetected();
                 return;
             }
 
             b_Detected = true;
             OnDetected?.Invoke();
+        }
+
+        private void Undetected()
+        {
+            if (b_Detected)
+            {
+                b_Detected = false;
+                OnUndetected?.Invoke();
+            }
         }
 
         /// <summary>
@@ -66,7 +75,7 @@ namespace ParkourGame.Enemy
         /// Returns true if the player falls under the vision angle
         /// </summary>
         /// <returns></returns>
-        private bool CheckAngle()
+        private bool PlayerInAngle()
         {
             var _targetDirection = m_Target.position - transform.position;
             float _angle = Vector3.Angle(_targetDirection, transform.forward);
@@ -81,6 +90,29 @@ namespace ParkourGame.Enemy
         private void PlayerUncrouched()
         {
             m_Target = Player;
+        }
+
+        /// <summary>
+        /// Check if there are no obstructions between player and enemy
+        /// </summary>
+        /// <returns></returns>
+        private bool PlayerInLineOfSight()
+        {
+            VisionPoints _visionPoints = m_Target.GetComponent<VisionPoints>();
+            foreach(Transform t in _visionPoints.PointsofVision)
+            {
+                Vector3 _rayDirection = (t.position - LineOfSightPivot.position).normalized;
+                Ray _ray = new Ray(LineOfSightPivot.position, _rayDirection);
+                RaycastHit _hit;
+                if(Physics.Raycast(_ray, out _hit))
+                {
+                    if(_hit.transform == m_Target)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private void OnDrawGizmosSelected()
