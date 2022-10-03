@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace ParkourGame.Player.Controllers
     {
         public GameObject PlayerModel;
         public GameObject StealthPlayerModel;
+        public Action OnCrouched;
+        public Action OnUncrouched;
 
         private bool m_IsCrouched;
 
@@ -37,11 +40,13 @@ namespace ParkourGame.Player.Controllers
                 {
                     PlayerModel.transform.position = StealthPlayerModel.transform.position;
                     PlayerModel.transform.rotation = StealthPlayerModel.transform.rotation;
+                    OnUncrouched?.Invoke();
                 }
                 else
                 {
                     StealthPlayerModel.transform.localPosition = PlayerModel.transform.localPosition;
                     StealthPlayerModel.transform.rotation = PlayerModel.transform.rotation;
+                    OnCrouched?.Invoke();
                 }
             }
         }

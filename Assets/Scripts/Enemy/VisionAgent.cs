@@ -1,3 +1,4 @@
+using ParkourGame.Player.Controllers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,11 +10,21 @@ namespace ParkourGame.Enemy
     {
         public float VisionRange = 5f;
         public float VisionAngle = 30f;
-        public Transform Target;
+        public Transform Player;
+        public Transform CrouchedPlayer;
+        public ActivationController ActivationController;
         public Action OnDetected;
         public Action OnUndetected;
 
+        private Transform m_Target;
         private bool b_Detected;
+
+        private void Start()
+        {
+            m_Target = Player;
+            ActivationController.OnCrouched += PlayerCrouched;
+            ActivationController.OnUncrouched += PlayerUncrouched;
+        }
 
         // Update is called once per frame
         void Update()
@@ -47,7 +58,7 @@ namespace ParkourGame.Enemy
         /// <returns></returns>
         private bool IsInRange()
         {
-            var _distance = Vector3.Distance(transform.position, Target.position);
+            var _distance = Vector3.Distance(transform.position, m_Target.position);
             return _distance < VisionRange;
         }
 
@@ -57,9 +68,19 @@ namespace ParkourGame.Enemy
         /// <returns></returns>
         private bool CheckAngle()
         {
-            var _targetDirection = Target.position - transform.position;
+            var _targetDirection = m_Target.position - transform.position;
             float _angle = Vector3.Angle(_targetDirection, transform.forward);
             return _angle < VisionAngle;
+        }
+
+        private void PlayerCrouched()
+        {
+            m_Target = CrouchedPlayer;
+        }
+
+        private void PlayerUncrouched()
+        {
+            m_Target = Player;
         }
 
         private void OnDrawGizmosSelected()

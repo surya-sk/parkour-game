@@ -5,6 +5,7 @@ using ParkourGame.Common;
 using UnityEngine.AI;
 using System;
 using Random = UnityEngine.Random;
+using ParkourGame.Player.Controllers;
 
 namespace ParkourGame.Enemy
 {
@@ -19,8 +20,11 @@ namespace ParkourGame.Enemy
         public bool PatrolOnStart;
         public bool LoopPatrolPoints;
         public float WaitTimeAtPatrolPoint = 2.0f;
-        public Transform Player;
+        public Transform DefaultPlayer;
+        public Transform CrouchedPlayer;
+        public ActivationController ActivationController;
 
+        private Transform m_Player;
         private Animator m_Animator;
         private NavMeshAgent m_NavMeshAgent;
         private int m_CurrentPatrolIndex;
@@ -30,7 +34,6 @@ namespace ParkourGame.Enemy
         private bool b_Detected;
         private VisionAgent m_VisionAgent;
         private Transform m_LastKnownPosition;
-        private bool b_LookingForPlayer;
 
         // Start is called before the first frame update
         void Start()
@@ -50,6 +53,10 @@ namespace ParkourGame.Enemy
             m_VisionAgent = GetComponent<VisionAgent>();
             m_VisionAgent.OnDetected += OnPlayerDetected;
             m_VisionAgent.OnUndetected += OnLoseDetection;
+
+            m_Player = DefaultPlayer;
+            ActivationController.OnCrouched += PlayerCrouched;
+            ActivationController.OnUncrouched += PlayerUncrouched;
 
             if (PatrolPoints == null || PatrolPoints.Count < 1)
             {
@@ -164,14 +171,24 @@ namespace ParkourGame.Enemy
             b_Detected = true;
             StopCoroutine(LookForPlayer());
             b_Patrolling = false;
-            Move(m_NavMeshAgent, Player);
-            m_LastKnownPosition = Player;
+            Move(m_NavMeshAgent, m_Player);
+            m_LastKnownPosition = m_Player;
         }
 
         public void OnLoseDetection()
         {
             b_Detected = false;
             StartCoroutine(LookForPlayer());
+        }
+
+        private void PlayerCrouched()
+        {
+            m_Player = CrouchedPlayer;
+        }
+
+        private void PlayerUncrouched()
+        {
+            m_Player = DefaultPlayer;
         }
 
         IEnumerator LookForPlayer()

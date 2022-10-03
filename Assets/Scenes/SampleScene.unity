@@ -123,6 +123,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 71ced4d15e681f343a68f138f4d94e66, type: 2}
+--- !u!114 &198466975 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 699276605, guid: 721348306c0a69e4f881046ad061e96e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7062136990706310378}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8b867f13d24e9409e8b946ea2eebce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +351,9 @@ MonoBehaviour:
   PatrolOnStart: 1
   LoopPatrolPoints: 1
   WaitTimeAtPatrolPoint: 2
-  Player: {fileID: 7062136990706310379}
+  DefaultPlayer: {fileID: 7062136990706310379}
+  CrouchedPlayer: {fileID: 1898849407}
+  ActivationController: {fileID: 198466975}
 --- !u!195 &547988987
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -376,7 +390,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VisionRange: 5
   VisionAngle: 30
-  Target: {fileID: 7062136990706310379}
+  Player: {fileID: 7062136990706310379}
+  CrouchedPlayer: {fileID: 1898849407}
+  ActivationController: {fileID: 198466975}
 --- !u!136 &547988991
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -796,6 +812,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1898849407 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7317075404225852164, guid: 721348306c0a69e4f881046ad061e96e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7062136990706310378}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1909211605
 GameObject:
   m_ObjectHideFlags: 0
