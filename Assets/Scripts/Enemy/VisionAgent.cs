@@ -1,3 +1,4 @@
+using ParkourGame.Environment;
 using ParkourGame.Player.Controllers;
 using ParkourGame.Player.Stealth;
 using System;
@@ -32,7 +33,7 @@ namespace ParkourGame.Enemy
         // Update is called once per frame
         void Update()
         {
-            if(!IsInRange())
+            if(!IsInRange(VisionRange))
             {
                 Undetected();
                 return;
@@ -65,10 +66,10 @@ namespace ParkourGame.Enemy
         /// Returns true if the player is in range
         /// </summary>
         /// <returns></returns>
-        private bool IsInRange()
+        private bool IsInRange(float maxRange)
         {
             var _distance = Vector3.Distance(transform.position, m_Target.position);
-            return _distance < VisionRange;
+            return _distance < maxRange;
         }
 
         /// <summary>
@@ -103,14 +104,39 @@ namespace ParkourGame.Enemy
             {
                 Vector3 _rayDirection = (t.position - LineOfSightPivot.position).normalized;
                 Ray _ray = new Ray(LineOfSightPivot.position, _rayDirection);
-                RaycastHit _hit;
-                if(Physics.Raycast(_ray, out _hit))
+
+                float _distanceToAgent = Vector3.Distance(t.position, LineOfSightPivot.position);
+                RaycastHit[] _hits = Physics.RaycastAll(_ray, _distanceToAgent);
+                List<VisionObstacle> _obstacles = new List<VisionObstacle>();
+                foreach(RaycastHit rh in _hits)
                 {
-                    if(_hit.transform == m_Target)
+                    var v = rh.transform.GetComponent<VisionObstacle>();
+                    if(v != null)
                     {
-                        return true;
+                        _obstacles.Add(v);
                     }
                 }
+
+                float _vision = VisionRange;
+                foreach(VisionObstacle v in _obstacles)
+                {
+                    if (v.Solid)
+                    {
+                        return false;
+                    }
+                    _vision *= v.ActualStrength;
+                    if(_vision < v.CutoffPoint)
+                    {
+                        return false;
+                    }
+                }
+
+                if(!IsInRange(_vision))
+                {
+                    return false;
+                }
+
+                return true;
             }
             return false;
         }
