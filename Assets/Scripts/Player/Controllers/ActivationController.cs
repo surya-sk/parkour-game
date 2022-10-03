@@ -35,18 +35,13 @@ namespace ParkourGame.Player.Controllers
                 StealthPlayerModel.SetActive(_isCrouched);
                 if (!m_IsCrouched) // means player just stopped crouching
                 {
-                    //Debug.Log("Stopped crouching");
-                    //PlayerModel.SetActive(true);
                     PlayerModel.transform.position = StealthPlayerModel.transform.position;
                     PlayerModel.transform.rotation = StealthPlayerModel.transform.rotation;
-                    //StealthPlayerModel.SetActive(false);
                 }
                 else
                 {
-                    //StealthPlayerModel.SetActive(true);
                     StealthPlayerModel.transform.localPosition = PlayerModel.transform.localPosition;
                     StealthPlayerModel.transform.rotation = PlayerModel.transform.rotation;
-                    //PlayerModel.SetActive(false);
                 }
             }
         }
