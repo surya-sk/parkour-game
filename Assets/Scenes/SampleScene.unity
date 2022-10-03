@@ -339,6 +339,7 @@ MonoBehaviour:
   PatrolOnStart: 1
   LoopPatrolPoints: 1
   WaitTimeAtPatrolPoint: 2
+  Player: {fileID: 7062136990706310379}
 --- !u!195 &547988987
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -353,7 +354,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -897,17 +898,17 @@ PrefabInstance:
     - target: {fileID: 4731613097573184569, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.08158676
+      value: 0.08158679
       objectReference: {fileID: 0}
     - target: {fileID: 4731613097573184569, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06340083
+      value: -0.0634008
       objectReference: {fileID: 0}
     - target: {fileID: 4731613097573184569, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.011916334
+      value: 0.011916332
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

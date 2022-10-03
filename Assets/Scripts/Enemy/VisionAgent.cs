@@ -13,12 +13,31 @@ namespace ParkourGame.Enemy
         public Action OnDetected;
         public Action OnUndetected;
 
+        private bool b_Detected;
+
         // Update is called once per frame
         void Update()
         {
-            if(!IsInRange()) { OnUndetected?.Invoke(); return; }
-            if(!CheckAngle()) { OnUndetected?.Invoke(); return; }   
+            if(!IsInRange())
+            {
+                if(b_Detected)
+                {
+                    b_Detected = false;
+                    OnUndetected?.Invoke();
+                }
+                return;
+            }
+            if(!CheckAngle()) 
+            {
+                if(b_Detected)
+                {
+                    b_Detected = false;
+                    OnUndetected?.Invoke();
+                }
+                return;
+            }
 
+            b_Detected = true;
             OnDetected?.Invoke();
         }
 

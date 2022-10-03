@@ -29,6 +29,8 @@ namespace ParkourGame.Enemy
         private bool b_PatrolPointReached;
         private bool b_Detected;
         private VisionAgent m_VisionAgent;
+        private Transform m_LastKnownPosition;
+        private bool b_LookingForPlayer;
 
         // Start is called before the first frame update
         void Start()
@@ -160,15 +162,29 @@ namespace ParkourGame.Enemy
         public void OnPlayerDetected()
         {
             b_Detected = true;
+            StopCoroutine(LookForPlayer());
             b_Patrolling = false;
             Move(m_NavMeshAgent, Player);
+            m_LastKnownPosition = Player;
         }
 
         public void OnLoseDetection()
         {
             b_Detected = false;
-            //TODO: Have some sort of last known position
+            StartCoroutine(LookForPlayer());
+        }
+
+        IEnumerator LookForPlayer()
+        {
+            if(m_LastKnownPosition != null)
+                Move(m_NavMeshAgent, m_LastKnownPosition);
+            m_Animator.Rebind();
+            m_Animator.SetTrigger("LookAround");
+            yield return new WaitForSeconds(3);
+            m_Animator.ResetTrigger("LookAround");
             Patrol(m_NavMeshAgent, PatrolPoints);
+            //StopCoroutine(LookForPlayer());
+            yield return new WaitForSeconds(0);
         }
     }
 }
