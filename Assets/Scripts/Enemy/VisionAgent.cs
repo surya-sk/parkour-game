@@ -120,6 +120,7 @@ namespace ParkourGame.Enemy
                 float _vision = VisionRange;
                 foreach(VisionObstacle v in _obstacles)
                 {
+                    // No point in proceeding if it's a solid surface
                     if (v.Solid)
                     {
                         return false;
