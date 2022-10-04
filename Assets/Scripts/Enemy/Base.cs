@@ -31,5 +31,14 @@ namespace ParkourGame.Enemy
             }
         }
 
+        /// <summary>
+        /// Attack the player, ie., reduce player health
+        /// </summary>
+        /// <param name="player"></param>
+        public void Attack(Transform player)
+        {
+            Debug.Log("Attack!");
+        }
+
     }
 }

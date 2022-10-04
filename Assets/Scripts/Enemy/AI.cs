@@ -34,6 +34,8 @@ namespace ParkourGame.Enemy
         private bool b_Detected;
         private VisionAgent m_VisionAgent;
         private Transform m_LastKnownPosition;
+        private Base m_Base;
+        private float m_DistanceToPlayer;
 
         // Start is called before the first frame update
         void Start()
@@ -57,6 +59,8 @@ namespace ParkourGame.Enemy
             m_Player = DefaultPlayer;
             ActivationController.OnCrouched += PlayerCrouched;
             ActivationController.OnUncrouched += PlayerUncrouched;
+
+            m_Base = GetComponent<Base>();
 
             if (PatrolPoints == null || PatrolPoints.Count < 1)
             {
@@ -84,6 +88,11 @@ namespace ParkourGame.Enemy
                     b_PatrolPointReached = true;
                     StartCoroutine(PatrolPointReached());
                 }
+            }
+
+            if(b_Detected)
+            {
+               m_DistanceToPlayer = Vector3.Distance(transform.position, m_Player.position);
             }
         }
 
@@ -169,15 +178,21 @@ namespace ParkourGame.Enemy
         public void OnPlayerDetected()
         {
             b_Detected = true;
+            ActivationController.SetCombatModePossible(true);
             StopCoroutine(LookForPlayer());
             b_Patrolling = false;
             Move(m_NavMeshAgent, m_Player);
+            if(m_DistanceToPlayer < m_NavMeshAgent.stoppingDistance)
+            {
+                m_Base.Attack(m_Player);
+            }
             m_LastKnownPosition = m_Player;
         }
 
         public void OnLoseDetection()
         {
             b_Detected = false;
+            ActivationController.SetCombatModePossible(false);
             StartCoroutine(LookForPlayer());
         }
 
