@@ -18,7 +18,6 @@ namespace ParkourGame.Player.Controllers
         public Action OnCombatMode;
         public Action OnReleaseCombatMode;
 
-        private bool m_CanBeInCombatMode;
         private bool m_IsInCombatMode;
         private bool m_IsCrouched;
 
@@ -35,22 +34,6 @@ namespace ParkourGame.Player.Controllers
         // Update is called once per frame
         void Update()
         {
-            if(m_CanBeInCombatMode)
-            {
-                bool _combatMode = Input.GetAxis("Engage") == 1;
-                if(m_IsInCombatMode != _combatMode)
-                {
-                    // Enter combat mode
-                }
-                else
-                {
-                    // Exit combat mode
-                }
-            }
-            else
-            {
-                m_IsInCombatMode = false;
-            }
             bool _isCrouched = Input.GetAxis("Crouch") == 1 ? !m_IsInCombatMode : false;
             SwitchCrouchState(_isCrouched);
         }
@@ -85,9 +68,16 @@ namespace ParkourGame.Player.Controllers
         /// Set if player can be in combat mode.
         /// </summary>
         /// <param name="b"></param>
-        public void SetCombatModePossible(bool b)
+        public void SetCombatMode(bool b)
         {
-            m_CanBeInCombatMode = b;
+            if(b)
+            {
+                OnCombatMode?.Invoke();
+            }
+            else
+            {
+                OnReleaseCombatMode?.Invoke();
+            }
         }
     }
 
