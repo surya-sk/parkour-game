@@ -12,8 +12,8 @@ namespace ParkourGame.Enemy
         {
             if(other.gameObject.tag == "Player")
             {
-                var _playerController = other.GetComponent<CrouchedCharacterController>();
-                _playerController.TakeDamage(Enemy.Damage);
+                //var _playerController = other.GetComponent<CrouchedCharacterController>();
+                //_playerController.TakeDamage(Enemy.Damage);
             }
         }
     }
