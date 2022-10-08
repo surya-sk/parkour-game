@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 915928042b3bf3d4a833711a2d6735c9
+guid: b25cf014191eb0d41a4449cbd8efa35f
 ModelImporter:
   serializedVersion: 22103
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Fight Idle
+    second: Standing Walk Forward
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Fight Idle
+      name: Standing Walk Forward
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 5
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
