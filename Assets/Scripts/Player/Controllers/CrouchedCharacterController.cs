@@ -36,5 +36,10 @@ namespace ParkourGame.Player.Controllers
                 m_Animator.SetTrigger("Idle");
             }
         }
+
+        public void TakeDamage(float damage)
+        {
+            Debug.Log("Taking damage from enemy");
+        }
     }
 }
