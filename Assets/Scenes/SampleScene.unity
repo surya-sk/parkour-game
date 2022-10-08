@@ -756,88 +756,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4476352744704198248, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9968836
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352744704198248, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.04540506
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352744704198248, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06379181
+      value: -0.06379184
       objectReference: {fileID: 0}
     - target: {fileID: 4476352744704198248, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.009605437
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352744805500359, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352744805500359, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.7600002
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352744805500359, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.699999
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352744805500359, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.993321
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352744805500359, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.11536857
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352744805500359, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.001874141
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352744805500359, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.00021767092
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352745472009580, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99589574
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352745472009580, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.0634825
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352745472009580, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.06360707
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352745472009580, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.010761135
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352745519604942, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.06340081
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476352745519604942, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.011916337
+      value: 0.009605441
       objectReference: {fileID: 0}
     - target: {fileID: 4476352745525329066, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
@@ -899,16 +824,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 9202298872162164811, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: ActivationController
-      value: 
-      objectReference: {fileID: 7062136991132680663}
-    - target: {fileID: 9202298872162164811, guid: 721348306c0a69e4f881046ad061e96e,
-        type: 3}
-      propertyPath: CombatAnimatiorController
-      value: 
-      objectReference: {fileID: 9100000, guid: b5f775de65e4627479535a766571d3c2, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 721348306c0a69e4f881046ad061e96e, type: 3}
