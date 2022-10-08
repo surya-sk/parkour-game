@@ -36,6 +36,7 @@ namespace ParkourGame.Enemy
         private Transform m_LastKnownPosition;
         private Base m_Base;
         private float m_DistanceToPlayer;
+        private float m_Magnitude;
 
         // Start is called before the first frame update
         void Start()
@@ -81,6 +82,15 @@ namespace ParkourGame.Enemy
         // Update is called once per frame
         void Update()
         {
+            m_Magnitude = m_NavMeshAgent.velocity.magnitude;
+            if(m_Magnitude > 0.5)
+            {
+                m_Animator.SetFloat("Magnitude", 1f);
+            } else
+            {
+                m_Animator.SetFloat("Magnitude", 0f);
+            }
+            
             if (b_Patrolling)
             {
                 if (Vector3.Distance(transform.position, PatrolPoints[m_CurrentPatrolIndex].position) < 1.0 && !b_PatrolPointReached)
@@ -117,8 +127,6 @@ namespace ParkourGame.Enemy
             FaceTarget(destination);
             try
             {
-                m_Animator.Rebind();
-                m_Animator.SetTrigger("Move");
                 m_NavMeshAgent.SetDestination(destination.position);
             }
             catch(Exception ex)
@@ -147,8 +155,7 @@ namespace ParkourGame.Enemy
         /// </summary>
         public IEnumerator PatrolPointReached()
         {
-            m_Animator.Rebind();
-            m_Animator.SetTrigger("Idle");
+            //m_Animator.Rebind();
             yield return new WaitForSeconds(Random.Range(WaitTimeAtPatrolPoint - 1, WaitTimeAtPatrolPoint + 3));
             if (m_CurrentPatrolIndex == PatrolPoints.Count - 1)
             {
@@ -184,7 +191,7 @@ namespace ParkourGame.Enemy
             Move(m_NavMeshAgent, m_Player);
             if(m_DistanceToPlayer < m_NavMeshAgent.stoppingDistance)
             {
-                m_Base.Attack(m_Player);
+                StartCoroutine(m_Base.Attack(m_Player));
             }
             m_LastKnownPosition = m_Player;
         }
@@ -210,10 +217,10 @@ namespace ParkourGame.Enemy
         {
             if(m_LastKnownPosition != null)
                 Move(m_NavMeshAgent, m_LastKnownPosition);
-            m_Animator.Rebind();
-            m_Animator.SetTrigger("LookAround");
+            //m_Animator.Rebind();
+            m_Animator.SetBool("LookAround", true);
             yield return new WaitForSeconds(3);
-            m_Animator.ResetTrigger("LookAround");
+            //m_Animator.ResetTrigger("LookAround");
             Patrol(m_NavMeshAgent, PatrolPoints);
             //StopCoroutine(LookForPlayer());
             yield return new WaitForSeconds(0);

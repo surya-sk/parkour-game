@@ -11,8 +11,17 @@ namespace ParkourGame.Enemy
     {
         public float Health = 100f;
         public float Damage = 10f;
+        public float AttackDelay = 2f;
+
+        Animator m_Animator;
+        bool b_IsAttacking;
 
         public bool IsDead { get; set; }
+
+        private void Start()
+        {
+            m_Animator = GetComponent<Animator>();
+        }
 
         /// <summary>
         /// Decreases enemy health by the damage amount, and kills it if health is below 5
@@ -25,9 +34,8 @@ namespace ParkourGame.Enemy
             if(Health < 5.0)
             {
                 IsDead = true;
-                var _animator = GetComponent<Animator>();
-                _animator.Rebind();
-                _animator.SetTrigger("Die");
+                m_Animator.Rebind();
+                m_Animator.SetTrigger("Die");
             }
         }
 
@@ -35,9 +43,17 @@ namespace ParkourGame.Enemy
         /// Attack the player, ie., reduce player health
         /// </summary>
         /// <param name="player"></param>
-        public void Attack(Transform player)
+        public IEnumerator Attack(Transform player)
         {
-            Debug.Log("Attack!");
+            if(!b_IsAttacking)
+            {
+                b_IsAttacking = true;
+                //m_Animator.Rebind();
+                yield return new WaitForSeconds(AttackDelay);
+                m_Animator.SetTrigger("Attack");
+                Debug.Log("Attack!");
+                b_IsAttacking=false;
+            }
         }
 
     }
