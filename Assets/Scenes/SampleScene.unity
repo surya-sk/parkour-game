@@ -482,50 +482,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1598064266 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1598064266, guid: 32466e916a5daeb4194bec19d5db8361,
-    type: 3}
-  m_PrefabInstance: {fileID: 4963224644269466231}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de8a47cd7378cbf4ab7561d3c6dadf9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1671030587 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8938635964458650051, guid: 32466e916a5daeb4194bec19d5db8361,
-    type: 3}
-  m_PrefabInstance: {fileID: 4963224644269466231}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1671030589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671030587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a196109392a55964cb39b2cdf8f82e59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Enemy: {fileID: 1598064266}
---- !u!65 &1671030590
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671030587}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.14836502, y: 0.24073428, z: 0.89191055}
-  m_Center: {x: 0.037670135, y: 0.14290205, z: 0.47811317}
 --- !u!1 &1765375247
 GameObject:
   m_ObjectHideFlags: 0
