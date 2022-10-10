@@ -11,7 +11,7 @@ namespace ParkourGame.Enemy
         public Base Enemy;
         private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.tag == "Player")
+            if(other.gameObject.tag == "Stealth Player")
             {
                 var _playerHealth = other.GetComponent<PlayerHealth>();
                 _playerHealth.TakeDamage(Enemy.Damage);

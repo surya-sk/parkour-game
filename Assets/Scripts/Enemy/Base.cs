@@ -52,10 +52,8 @@ namespace ParkourGame.Enemy
                 ActivationController.SwitchCrouchState(true);
                 ActivationController.ForceCrouch = true;
                 b_IsAttacking = true;
-                //m_Animator.Rebind();
                 yield return new WaitForSeconds(AttackDelay);
                 m_Animator.SetTrigger("Attack");
-                Debug.Log("Attack!");
                 b_IsAttacking=false;
                 ActivationController.ForceCrouch = false;
             }
