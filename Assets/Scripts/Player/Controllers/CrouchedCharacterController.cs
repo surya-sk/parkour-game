@@ -57,10 +57,5 @@ namespace ParkourGame.Player.Controllers
             b_InCombatMode = false;
             m_Animator.runtimeAnimatorController = m_DefaultAnimatorController;
         }
-
-        public void TakeDamage(float damage)
-        {
-            Debug.Log("Taking damage from enemy");
-        }
     }
 }

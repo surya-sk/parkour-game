@@ -1,3 +1,4 @@
+using ParkourGame.Player.Controllers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace ParkourGame.Enemy
         public float Health = 100f;
         public float Damage = 10f;
         public float AttackDelay = 2f;
+        public ActivationController ActivationController;
 
         Animator m_Animator;
         bool b_IsAttacking;
@@ -47,12 +49,15 @@ namespace ParkourGame.Enemy
         {
             if(!b_IsAttacking)
             {
+                ActivationController.SwitchCrouchState(true);
+                ActivationController.ForceCrouch = true;
                 b_IsAttacking = true;
                 //m_Animator.Rebind();
                 yield return new WaitForSeconds(AttackDelay);
                 m_Animator.SetTrigger("Attack");
                 Debug.Log("Attack!");
                 b_IsAttacking=false;
+                ActivationController.ForceCrouch = false;
             }
         }
 

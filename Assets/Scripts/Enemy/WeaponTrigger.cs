@@ -1,3 +1,4 @@
+using ParkourGame.Player.Combat;
 using ParkourGame.Player.Controllers;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,8 +13,8 @@ namespace ParkourGame.Enemy
         {
             if(other.gameObject.tag == "Player")
             {
-                //var _playerController = other.GetComponent<CrouchedCharacterController>();
-                //_playerController.TakeDamage(Enemy.Damage);
+                var _playerHealth = other.GetComponent<PlayerHealth>();
+                _playerHealth.TakeDamage(Enemy.Damage);
             }
         }
     }

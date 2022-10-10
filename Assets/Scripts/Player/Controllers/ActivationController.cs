@@ -17,6 +17,7 @@ namespace ParkourGame.Player.Controllers
         public Action OnUncrouched;
         public Action OnCombatMode;
         public Action OnReleaseCombatMode;
+        public bool ForceCrouch { get; set; }
 
         private bool m_IsInCombatMode;
         private bool m_IsCrouched;
@@ -34,6 +35,8 @@ namespace ParkourGame.Player.Controllers
         // Update is called once per frame
         void Update()
         {
+            if (ForceCrouch)
+                return;
             bool _isCrouched = Input.GetAxis("Crouch") == 1 ? !m_IsInCombatMode : false;
             SwitchCrouchState(_isCrouched);
         }
@@ -42,7 +45,7 @@ namespace ParkourGame.Player.Controllers
         /// Switch between crouched and non-crouched state
         /// </summary>
         /// <param name="_isCrouched"></param>
-        private void SwitchCrouchState(bool _isCrouched)
+        public void SwitchCrouchState(bool _isCrouched)
         {
             if (m_IsCrouched != _isCrouched)
             {
