@@ -850,7 +850,7 @@ PrefabInstance:
     - target: {fileID: 1258065522763004233, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Stealth Player
       objectReference: {fileID: 0}
     - target: {fileID: 4476352744286855495, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
@@ -900,12 +900,12 @@ PrefabInstance:
     - target: {fileID: 4476352745519604942, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06340081
+      value: -0.063400775
       objectReference: {fileID: 0}
     - target: {fileID: 4476352745519604942, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.011916337
+      value: 0.01191633
       objectReference: {fileID: 0}
     - target: {fileID: 4476352745525329066, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}

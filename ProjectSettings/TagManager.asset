@@ -15,6 +15,7 @@ TagManager:
   - Horse
   - Water
   - Animal
+  - Stealth Player
   layers:
   - Default
   - TransparentFX
