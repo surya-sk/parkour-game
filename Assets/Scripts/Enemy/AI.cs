@@ -37,6 +37,7 @@ namespace ParkourGame.Enemy
         private Base m_Base;
         private float m_DistanceToPlayer;
         private float m_Magnitude;
+        private bool m_IsDead;
 
         // Start is called before the first frame update
         void Start()
@@ -62,6 +63,7 @@ namespace ParkourGame.Enemy
             ActivationController.OnUncrouched += PlayerUncrouched;
 
             m_Base = GetComponent<Base>();
+            m_Base.OnDeath += OnDeath;
 
             if (PatrolPoints == null || PatrolPoints.Count < 1)
             {
@@ -82,6 +84,12 @@ namespace ParkourGame.Enemy
         // Update is called once per frame
         void Update()
         {
+            if(m_IsDead)
+            {
+                return;
+            }
+
+
             m_Magnitude = m_NavMeshAgent.velocity.magnitude;
             if(m_Magnitude > 0.5)
             {
@@ -182,6 +190,9 @@ namespace ParkourGame.Enemy
         }
         #endregion
 
+        /// <summary>
+        /// When player is detected, move to player position and if lost, set last known position
+        /// </summary>
         public void OnPlayerDetected()
         {
             b_Detected = true;
@@ -196,6 +207,9 @@ namespace ParkourGame.Enemy
             m_LastKnownPosition = m_Player;
         }
 
+        /// <summary>
+        /// Player is no longer in FOV
+        /// </summary>
         public void OnLoseDetection()
         {
             b_Detected = false;
@@ -213,6 +227,21 @@ namespace ParkourGame.Enemy
             m_Player = DefaultPlayer;
         }
 
+        /// <summary>
+        /// Kill enemy and disable nav mesh
+        /// </summary>
+        private void OnDeath()
+        {
+            m_Animator.Rebind();
+            m_Animator.SetTrigger("Die");
+            m_NavMeshAgent.enabled = false;
+            m_IsDead = true;
+        }
+
+        /// <summary>
+        /// Go to player's last known position and look around for a bit
+        /// </summary>
+        /// <returns></returns>
         IEnumerator LookForPlayer()
         {
             if(m_LastKnownPosition != null)

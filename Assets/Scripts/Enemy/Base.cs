@@ -1,4 +1,5 @@
 using ParkourGame.Player.Controllers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace ParkourGame.Enemy
         public float Damage = 10f;
         public float AttackDelay = 2f;
         public ActivationController ActivationController;
+
+        public Action OnDeath;
         public bool IsAttacking { get => b_IsAttacking; }
 
         Animator m_Animator;
@@ -37,8 +40,7 @@ namespace ParkourGame.Enemy
             if(Health < 5.0 || assassination)
             {
                 IsDead = true;
-                m_Animator.Rebind();
-                m_Animator.SetTrigger("Die");
+                OnDeath?.Invoke();
             }
         }
 
