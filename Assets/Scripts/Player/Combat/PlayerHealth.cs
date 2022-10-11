@@ -9,6 +9,8 @@ namespace ParkourGame.Player.Combat
     {
         public GameObject PlayerRef;
 
+        private bool b_IsDead;
+
         /// <summary>
         /// Decreases player health and kills player if health is too low
         /// </summary>
@@ -17,6 +19,8 @@ namespace ParkourGame.Player.Combat
         {
             var _health = Player.GetInstance().GetHealth();
             _health -= damage;
+            if (b_IsDead)
+                return;
             Player.GetInstance().SetHealth(_health);
             if(_health <= 0)
             {
@@ -25,8 +29,13 @@ namespace ParkourGame.Player.Combat
             Debug.Log("Damage!");
         }
 
+        /// <summary>
+        /// Kill the player
+        /// </summary>
+        /// <returns></returns>
         IEnumerator Die()
         {
+            b_IsDead = true;
             var _animator = GetComponent<Animator>();
             _animator.SetTrigger("Die");
             yield return new WaitForSeconds(2f);
