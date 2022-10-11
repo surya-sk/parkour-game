@@ -13,8 +13,11 @@ namespace ParkourGame.Enemy
         {
             if(other.gameObject.tag == "Stealth Player")
             {
-                var _playerHealth = other.GetComponent<PlayerHealth>();
-                _playerHealth.TakeDamage(Enemy.Damage);
+                if(Enemy.IsAttacking)
+                {
+                    var _playerHealth = other.GetComponent<PlayerHealth>();
+                    _playerHealth.TakeDamage(Enemy.Damage);
+                }
             }
         }
     }

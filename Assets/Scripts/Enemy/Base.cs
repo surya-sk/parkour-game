@@ -14,6 +14,7 @@ namespace ParkourGame.Enemy
         public float Damage = 10f;
         public float AttackDelay = 2f;
         public ActivationController ActivationController;
+        public bool IsAttacking { get => b_IsAttacking; }
 
         Animator m_Animator;
         bool b_IsAttacking;
@@ -29,11 +30,11 @@ namespace ParkourGame.Enemy
         /// Decreases enemy health by the damage amount, and kills it if health is below 5
         /// </summary>
         /// <param name="damage"></param>
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, bool assassination = false)
         {
             Health -= damage;
             if (IsDead) return;
-            if(Health < 5.0)
+            if(Health < 5.0 || assassination)
             {
                 IsDead = true;
                 m_Animator.Rebind();

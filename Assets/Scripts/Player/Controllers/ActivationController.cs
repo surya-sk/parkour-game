@@ -18,6 +18,7 @@ namespace ParkourGame.Player.Controllers
         public Action OnCombatMode;
         public Action OnReleaseCombatMode;
         public bool ForceCrouch { get; set; }
+        public bool InCombatMode { get => m_IsInCombatMode; }
 
         private bool m_IsInCombatMode;
         private bool m_IsCrouched;
@@ -73,7 +74,8 @@ namespace ParkourGame.Player.Controllers
         /// <param name="b"></param>
         public void SetCombatMode(bool b)
         {
-            if(b)
+            m_IsInCombatMode = b;
+            if(m_IsInCombatMode)
             {
                 OnCombatMode?.Invoke();
             }

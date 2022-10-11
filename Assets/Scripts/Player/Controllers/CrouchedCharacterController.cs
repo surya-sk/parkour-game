@@ -7,6 +7,7 @@ namespace ParkourGame.Player.Controllers
     public class CrouchedCharacterController : MonoBehaviour
     {
         public float Speed;
+        public float CombatCooldown = 2f;
         public Camera Camera;
         public ActivationController ActivationController;
         public RuntimeAnimatorController CombatAnimatiorController;
@@ -15,6 +16,7 @@ namespace ParkourGame.Player.Controllers
         Vector3 m_Movement;
         Animator m_Animator;
         bool b_InCombatMode;
+        bool b_IsReadyToAttack = true;
         RuntimeAnimatorController m_DefaultAnimatorController;
 
         // Start is called before the first frame update
@@ -30,6 +32,30 @@ namespace ParkourGame.Player.Controllers
 
         // Update is called once per frame
         void Update()
+        {
+            HandleMovement();
+            if(Input.GetButtonDown("Attack") && b_IsReadyToAttack)
+            {
+                StartCoroutine(Attack());
+            }
+        }
+
+        IEnumerator Attack()
+        {
+            b_IsReadyToAttack = false;
+            m_Animator.SetTrigger("Attack");
+            if(b_InCombatMode)
+            {
+                yield return new WaitForSeconds(CombatCooldown);
+            }
+            //m_Animator.ResetTrigger("Attack");
+            b_IsReadyToAttack = true;
+        }
+
+        /// <summary>
+        /// Handles player movement
+        /// </summary>
+        private void HandleMovement()
         {
             m_Movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
             if (m_Movement.magnitude >= 0.1f)
