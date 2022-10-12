@@ -17,6 +17,7 @@ namespace ParkourGame.Enemy
         public ActivationController ActivationController;
 
         public Action OnDeath;
+        [HideInInspector]
         public bool IsAttacking { get => b_IsAttacking; }
 
         Animator m_Animator;

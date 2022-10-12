@@ -11,12 +11,15 @@ namespace ParkourGame.Player.Controllers
         public Camera Camera;
         public ActivationController ActivationController;
         public RuntimeAnimatorController CombatAnimatiorController;
+        [HideInInspector]
+        public bool IsAttacking { get => b_IsAttacking; }
 
         CharacterController m_Controller;
         Vector3 m_Movement;
         Animator m_Animator;
         bool b_InCombatMode;
         bool b_IsReadyToAttack = true;
+        bool b_IsAttacking = false;
         RuntimeAnimatorController m_DefaultAnimatorController;
 
         // Start is called before the first frame update
@@ -40,16 +43,22 @@ namespace ParkourGame.Player.Controllers
             }
         }
 
+        /// <summary>
+        /// Swing the blade
+        /// </summary>
+        /// <returns></returns>
         IEnumerator Attack()
         {
             b_IsReadyToAttack = false;
+            b_IsAttacking = true;
             m_Animator.SetTrigger("Attack");
             if(b_InCombatMode)
             {
                 yield return new WaitForSeconds(CombatCooldown);
             }
-            //m_Animator.ResetTrigger("Attack");
             b_IsReadyToAttack = true;
+            yield return new WaitForSeconds(0.5f);
+            b_IsAttacking = false;
         }
 
         /// <summary>

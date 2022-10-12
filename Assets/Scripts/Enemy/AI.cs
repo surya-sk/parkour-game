@@ -235,6 +235,7 @@ namespace ParkourGame.Enemy
             m_Animator.Rebind();
             m_Animator.SetTrigger("Die");
             m_NavMeshAgent.enabled = false;
+            m_VisionAgent.enabled = false;
             m_IsDead = true;
         }
 

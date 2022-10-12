@@ -13,9 +13,14 @@ namespace ParkourGame.Player.Combat
         {
             if(other.gameObject.tag == "Enemy")
             {
-                var _enemy = other.GetComponent<Base>();
-                var _assassinate = !ActivationController.InCombatMode;
-                _enemy.TakeDamage(20, _assassinate);
+                var _player = ActivationController.StealthPlayerModel;
+                var _playerController = _player.GetComponent<CrouchedCharacterController>();
+                if(_playerController.IsAttacking)
+                {
+                    var _enemy = other.GetComponent<Base>();
+                    var _assassinate = !ActivationController.InCombatMode;
+                    _enemy.TakeDamage(20, _assassinate);
+                }
             }
         }
     }
