@@ -863,12 +863,12 @@ PrefabInstance:
     - target: {fileID: 4476352744704198248, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06379181
+      value: -0.06379184
       objectReference: {fileID: 0}
     - target: {fileID: 4476352744704198248, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.009605437
+      value: 0.009605441
       objectReference: {fileID: 0}
     - target: {fileID: 4476352744805500359, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
@@ -903,12 +903,12 @@ PrefabInstance:
     - target: {fileID: 4476352745519604942, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06340081
+      value: -0.063400775
       objectReference: {fileID: 0}
     - target: {fileID: 4476352745519604942, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.011916337
+      value: 0.01191633
       objectReference: {fileID: 0}
     - target: {fileID: 4476352745525329066, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
@@ -1045,7 +1045,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1598064266, guid: 32466e916a5daeb4194bec19d5db8361, type: 3}
       propertyPath: Damage
-      value: 30
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1598064266, guid: 32466e916a5daeb4194bec19d5db8361, type: 3}
       propertyPath: ActivationController

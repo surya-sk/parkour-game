@@ -8,6 +8,8 @@ namespace ParkourGame.Player.Combat
     public class PlayerHealth : MonoBehaviour
     {
         public GameObject PlayerRef;
+        [HideInInspector]
+        public bool IsDead { get => b_IsDead; }
 
         private bool b_IsDead;
 
@@ -26,7 +28,6 @@ namespace ParkourGame.Player.Combat
             {
                 StartCoroutine(Die());
             }
-            Debug.Log("Damage!");
         }
 
         /// <summary>

@@ -37,6 +37,7 @@ namespace ParkourGame.Enemy
         public void TakeDamage(float damage, bool assassination = false)
         {
             Health -= damage;
+            Debug.Log(Health);
             if (IsDead) return;
             if(Health < 5.0 || assassination)
             {
@@ -49,7 +50,7 @@ namespace ParkourGame.Enemy
         /// Attack the player, ie., reduce player health
         /// </summary>
         /// <param name="player"></param>
-        public IEnumerator Attack(Transform player)
+        public IEnumerator Attack()
         {
             if(!b_IsAttacking)
             {

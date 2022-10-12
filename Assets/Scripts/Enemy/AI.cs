@@ -202,7 +202,7 @@ namespace ParkourGame.Enemy
             Move(m_NavMeshAgent, m_Player);
             if(m_DistanceToPlayer < m_NavMeshAgent.stoppingDistance)
             {
-                StartCoroutine(m_Base.Attack(m_Player));
+                StartCoroutine(m_Base.Attack());
             }
             m_LastKnownPosition = m_Player;
         }

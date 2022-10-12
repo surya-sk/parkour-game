@@ -1,3 +1,4 @@
+using ParkourGame.Player.Combat;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,11 +22,13 @@ namespace ParkourGame.Player.Controllers
         bool b_IsReadyToAttack = true;
         bool b_IsAttacking = false;
         RuntimeAnimatorController m_DefaultAnimatorController;
+        PlayerHealth m_PlayerHealth;
 
         // Start is called before the first frame update
         void Start()
         {
             m_Controller = GetComponent<CharacterController>();
+            m_PlayerHealth = GetComponent<PlayerHealth>();
             m_Animator = GetComponent<Animator>();
             m_DefaultAnimatorController = m_Animator.runtimeAnimatorController;
             ActivationController.OnCombatMode += ActivateCombatMode;
@@ -36,6 +39,8 @@ namespace ParkourGame.Player.Controllers
         // Update is called once per frame
         void Update()
         {
+            if (m_PlayerHealth.IsDead)
+                return;
             HandleMovement();
             if(Input.GetButtonDown("Attack") && b_IsReadyToAttack)
             {
