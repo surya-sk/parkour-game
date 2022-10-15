@@ -42,9 +42,11 @@ namespace ParkourGame.Player.Controllers
             if (m_PlayerHealth.IsDead)
                 return;
             HandleMovement();
-            if(Input.GetButtonDown("Attack") && b_IsReadyToAttack)
+            bool _attack = Input.GetButtonDown("Attack");
+            bool _kick = Input.GetButtonDown("Kick");
+            if ((_attack || _kick) && b_IsReadyToAttack)
             {
-                StartCoroutine(Attack());
+                StartCoroutine(Attack(_kick));
             }
         }
 
@@ -52,11 +54,20 @@ namespace ParkourGame.Player.Controllers
         /// Swing the blade
         /// </summary>
         /// <returns></returns>
-        IEnumerator Attack()
+        IEnumerator Attack(bool kick)
         {
             b_IsReadyToAttack = false;
             b_IsAttacking = true;
-            m_Animator.SetTrigger("Attack");
+            string _triggerToSet = "";
+            if(kick)
+            {
+                _triggerToSet = Random.Range(0, 1) == 0 ? "Kick1" : "Kick2";
+            }
+            else
+            {
+                _triggerToSet = Random.Range(0, 1) == 0 ? "Attack1" : "Attack2";
+            }
+            m_Animator.SetTrigger(_triggerToSet);
             if(b_InCombatMode)
             {
                 yield return new WaitForSeconds(CombatCooldown);
