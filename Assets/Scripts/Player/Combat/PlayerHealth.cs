@@ -38,7 +38,7 @@ namespace ParkourGame.Player.Combat
         {
             b_IsDead = true;
             var _animator = GetComponent<Animator>();
-            _animator.SetTrigger("Die");
+            _animator.SetTrigger("Die1");
             yield return new WaitForSeconds(2f);
             Destroy(PlayerRef);
         }

@@ -151,7 +151,7 @@ namespace ParkourGame.Enemy
         /// <param name="patrolPoints"></param>
         public void Patrol(NavMeshAgent agent, List<Transform> patrolPoints)
         {
-            if(!b_Detected)
+            if(!b_Detected && patrolPoints.Count > 0)
             {
                 b_Patrolling = true;
                 Move(agent, patrolPoints[m_CurrentPatrolIndex]);

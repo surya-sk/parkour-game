@@ -57,7 +57,6 @@ namespace ParkourGame.Player.Controllers
         IEnumerator Attack(bool kick)
         {
             b_IsReadyToAttack = false;
-            b_IsAttacking = true;
             string _triggerToSet = "";
             if(kick)
             {
@@ -65,8 +64,10 @@ namespace ParkourGame.Player.Controllers
             }
             else
             {
+                b_IsAttacking = true;
                 _triggerToSet = Random.Range(0, 1) == 0 ? "Attack1" : "Attack2";
             }
+            m_Animator.Rebind();
             m_Animator.SetTrigger(_triggerToSet);
             if(b_InCombatMode)
             {
