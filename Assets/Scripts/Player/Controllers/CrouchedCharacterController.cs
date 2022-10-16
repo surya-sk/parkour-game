@@ -65,7 +65,7 @@ namespace ParkourGame.Player.Controllers
             else
             {
                 b_IsAttacking = true;
-                if(b_InCombatMode)
+                if(!b_InCombatMode)
                 {
                     _triggerToSet = "Attack";
                 }
