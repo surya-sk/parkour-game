@@ -58,14 +58,21 @@ namespace ParkourGame.Player.Controllers
         {
             b_IsReadyToAttack = false;
             string _triggerToSet = "";
-            if(kick)
+            if(kick && b_InCombatMode)
             {
                 _triggerToSet = Random.Range(0, 1) == 0 ? "Kick1" : "Kick2";
             }
             else
             {
                 b_IsAttacking = true;
-                _triggerToSet = Random.Range(0, 1) == 0 ? "Attack1" : "Attack2";
+                if(b_InCombatMode)
+                {
+                    _triggerToSet = "Attack";
+                }
+                else
+                {
+                    _triggerToSet = Random.Range(0, 1) == 0 ? "Attack1" : "Attack2";
+                }
             }
             m_Animator.Rebind();
             m_Animator.SetTrigger(_triggerToSet);
