@@ -1,6 +1,7 @@
 using ParkourGame.Player.Combat;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ParkourGame.Player.Controllers
@@ -127,6 +128,7 @@ namespace ParkourGame.Player.Controllers
         IEnumerator StunPlayer()
         {
             b_IsReadyToAttack = false;
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.02f);
             m_Animator.SetTrigger("Stun");
             yield return new WaitForSeconds(Random.Range(StunTime - 1, StunTime + 4));
             b_IsReadyToAttack = true;
