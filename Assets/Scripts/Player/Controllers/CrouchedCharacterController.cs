@@ -9,6 +9,7 @@ namespace ParkourGame.Player.Controllers
     {
         public float Speed;
         public float CombatCooldown = 2f;
+        public float StunTime = 2f;
         public Camera Camera;
         public ActivationController ActivationController;
         public RuntimeAnimatorController CombatAnimatiorController;
@@ -29,6 +30,7 @@ namespace ParkourGame.Player.Controllers
         {
             m_Controller = GetComponent<CharacterController>();
             m_PlayerHealth = GetComponent<PlayerHealth>();
+            m_PlayerHealth.OnStunned += Stun;
             m_Animator = GetComponent<Animator>();
             m_DefaultAnimatorController = m_Animator.runtimeAnimatorController;
             ActivationController.OnCombatMode += ActivateCombatMode;
@@ -115,6 +117,19 @@ namespace ParkourGame.Player.Controllers
         {
             b_InCombatMode = false;
             m_Animator.runtimeAnimatorController = m_DefaultAnimatorController;
+        }
+
+        private void Stun()
+        {
+            StartCoroutine(StunPlayer());
+        }
+
+        IEnumerator StunPlayer()
+        {
+            b_IsReadyToAttack = false;
+            m_Animator.SetTrigger("Stun");
+            yield return new WaitForSeconds(Random.Range(StunTime - 1, StunTime + 4));
+            b_IsReadyToAttack = true;
         }
     }
 }

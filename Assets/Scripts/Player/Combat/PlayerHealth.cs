@@ -1,4 +1,5 @@
 using ParkourGame.Player.Controllers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,10 @@ namespace ParkourGame.Player.Combat
         public GameObject PlayerRef;
         [HideInInspector]
         public bool IsDead { get => b_IsDead; }
+        public Action OnStunned;
 
         private bool b_IsDead;
+
 
         /// <summary>
         /// Decreases player health and kills player if health is too low
@@ -23,6 +26,7 @@ namespace ParkourGame.Player.Combat
             _health -= damage;
             if (b_IsDead)
                 return;
+            Stun();
             Player.GetInstance().SetHealth(_health);
             if(_health <= 0)
             {
@@ -41,6 +45,11 @@ namespace ParkourGame.Player.Combat
             _animator.SetTrigger("Die1");
             yield return new WaitForSeconds(2f);
             Destroy(PlayerRef);
+        }
+
+        private void Stun()
+        {
+            OnStunned?.Invoke();
         }
     }
 }
