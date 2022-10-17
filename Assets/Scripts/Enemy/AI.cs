@@ -104,7 +104,7 @@ namespace ParkourGame.Enemy
             
             if (b_Patrolling)
             {
-                if (Vector3.Distance(transform.position, PatrolPoints[m_CurrentPatrolIndex].position) < 1.0 && !b_PatrolPointReached)
+                if (Vector3.Distance(transform.position, PatrolPoints[m_CurrentPatrolIndex].position) < m_NavMeshAgent.stoppingDistance && !b_PatrolPointReached)
                 {
                     b_PatrolPointReached = true;
                     StartCoroutine(PatrolPointReached());
