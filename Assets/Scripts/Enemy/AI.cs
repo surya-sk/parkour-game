@@ -20,6 +20,8 @@ namespace ParkourGame.Enemy
         public bool PatrolOnStart;
         public bool LoopPatrolPoints;
         public float WaitTimeAtPatrolPoint = 2.0f;
+
+        [Header("Player Refs")]
         public Transform DefaultPlayer;
         public Transform CrouchedPlayer;
         public ActivationController ActivationController;
@@ -89,6 +91,7 @@ namespace ParkourGame.Enemy
                 return;
             }
 
+            Debug.Log(b_Detected);
 
             m_Magnitude = m_NavMeshAgent.velocity.magnitude;
             if(m_Magnitude > 0.5)
