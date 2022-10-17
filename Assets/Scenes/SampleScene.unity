@@ -779,12 +779,12 @@ PrefabInstance:
     - target: {fileID: 4476352744704198248, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06379184
+      value: -0.06379181
       objectReference: {fileID: 0}
     - target: {fileID: 4476352744704198248, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.009605441
+      value: 0.009605437
       objectReference: {fileID: 0}
     - target: {fileID: 4476352744805500359, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
@@ -819,12 +819,12 @@ PrefabInstance:
     - target: {fileID: 4476352745519604942, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06340081
+      value: -0.063400775
       objectReference: {fileID: 0}
     - target: {fileID: 4476352745519604942, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.011916337
+      value: 0.01191633
       objectReference: {fileID: 0}
     - target: {fileID: 4476352745525329066, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
@@ -969,7 +969,7 @@ PrefabInstance:
       objectReference: {fileID: 1082395375}
     - target: {fileID: 2023895389, guid: 32466e916a5daeb4194bec19d5db8361, type: 3}
       propertyPath: m_Interpolate
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4963224644269466224, guid: 32466e916a5daeb4194bec19d5db8361,
         type: 3}
@@ -986,6 +986,16 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 2570377974621089115}
+    - target: {fileID: 4963224644269466227, guid: 32466e916a5daeb4194bec19d5db8361,
+        type: 3}
+      propertyPath: VisionAngle
+      value: 67.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 4963224644269466227, guid: 32466e916a5daeb4194bec19d5db8361,
+        type: 3}
+      propertyPath: VisionRange
+      value: 5.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4963224644269466227, guid: 32466e916a5daeb4194bec19d5db8361,
         type: 3}
       propertyPath: CrouchedPlayer
