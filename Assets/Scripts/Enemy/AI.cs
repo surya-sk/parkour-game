@@ -81,6 +81,7 @@ namespace ParkourGame.Enemy
             {
                 Patrol(m_NavMeshAgent, PatrolPoints);
             }
+
         }
 
         // Update is called once per frame
@@ -111,7 +112,7 @@ namespace ParkourGame.Enemy
 
             if(b_Detected)
             {
-               m_DistanceToPlayer = Vector3.Distance(transform.position, m_Player.position);
+                m_DistanceToPlayer = Vector3.Distance(transform.position, m_Player.position);
             }
         }
 
@@ -213,9 +214,12 @@ namespace ParkourGame.Enemy
         /// </summary>
         public void OnLoseDetection()
         {
-            b_Detected = false;
-            ActivationController.SetCombatMode(false);
-            StartCoroutine(LookForPlayer());
+            if(m_DistanceToPlayer > 20.0f)
+            {
+                b_Detected = false;
+                ActivationController.SetCombatMode(false);
+                StartCoroutine(LookForPlayer());
+            }
         }
 
         private void PlayerCrouched()
