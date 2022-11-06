@@ -25,6 +25,7 @@ namespace ParkourGame.Player.Controllers
         bool b_IsAttacking = false;
         RuntimeAnimatorController m_DefaultAnimatorController;
         PlayerHealth m_PlayerHealth;
+        bool b_IsStunned = false;
 
         // Start is called before the first frame update
         void Start()
@@ -44,7 +45,8 @@ namespace ParkourGame.Player.Controllers
         {
             if (m_PlayerHealth.IsDead)
                 return;
-            HandleMovement();
+            if(!b_IsStunned)
+                HandleMovement();
             bool _attack = Input.GetButtonDown("Attack");
             bool _kick = Input.GetButtonDown("Kick");
             if ((_attack || _kick) && b_IsReadyToAttack)
@@ -127,11 +129,13 @@ namespace ParkourGame.Player.Controllers
 
         IEnumerator StunPlayer()
         {
+            b_IsStunned = true;
             b_IsReadyToAttack = false;
             m_Animator.SetTrigger("Stun");
             transform.position = new Vector3(transform.position.x + 0.02f, transform.position.y, transform.position.z - 0.2f);
             yield return new WaitForSeconds(Random.Range(StunTime - 1, StunTime + 4));
             b_IsReadyToAttack = true;
+            b_IsStunned = false;
         }
     }
 }

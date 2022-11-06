@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ParkourGame.Player.Combat
 {
@@ -49,7 +50,10 @@ namespace ParkourGame.Player.Combat
 
         private void Stun()
         {
-            OnStunned?.Invoke();
+            if(Random.Range(0,1) == 0)
+            {
+                OnStunned?.Invoke();
+            }
         }
     }
 }
