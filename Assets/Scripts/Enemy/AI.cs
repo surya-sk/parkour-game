@@ -91,8 +91,6 @@ namespace ParkourGame.Enemy
                 return;
             }
 
-            Debug.Log(b_Detected);
-
             m_Magnitude = m_NavMeshAgent.velocity.magnitude;
             if(m_Magnitude > 0.5)
             {

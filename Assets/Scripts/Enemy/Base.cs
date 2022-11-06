@@ -40,7 +40,6 @@ namespace ParkourGame.Enemy
         public void TakeDamage(float damage, bool assassination = false)
         {
             Health -= damage;
-            Debug.Log(Health);
             StartCoroutine(Stun(1));
             if (IsDead) return;
             if(Health < 5.0 || assassination)
@@ -63,7 +62,7 @@ namespace ParkourGame.Enemy
                 b_IsAttacking = true;
                 yield return new WaitForSeconds(AttackDelay);
                 m_Animator.SetTrigger("Attack");
-                b_IsAttacking=false;
+                b_IsAttacking = false;
                 ActivationController.ForceCrouch = false;
             }
         }

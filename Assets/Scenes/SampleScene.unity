@@ -774,17 +774,17 @@ PrefabInstance:
     - target: {fileID: 2140584474249202724, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4476352744704198248, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.06379181
+      value: -0.06379184
       objectReference: {fileID: 0}
     - target: {fileID: 4476352744704198248, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.009605437
+      value: 0.009605441
       objectReference: {fileID: 0}
     - target: {fileID: 4476352744805500359, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
@@ -888,13 +888,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9202298872162164810, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
+      propertyPath: m_Height
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202298872162164810, guid: 721348306c0a69e4f881046ad061e96e,
+        type: 3}
       propertyPath: m_Center.y
       value: 0.87
       objectReference: {fileID: 0}
     - target: {fileID: 9202298872162164810, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
       propertyPath: m_SkinWidth
-      value: 0.15
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 9202298872227600108, guid: 721348306c0a69e4f881046ad061e96e,
         type: 3}
@@ -961,7 +966,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1598064266, guid: 32466e916a5daeb4194bec19d5db8361, type: 3}
       propertyPath: AttackDelay
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1598064266, guid: 32466e916a5daeb4194bec19d5db8361, type: 3}
       propertyPath: ActivationController
