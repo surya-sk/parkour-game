@@ -61,7 +61,9 @@ namespace ParkourGame.Enemy
                 ActivationController.ForceCrouch = true;
                 b_IsAttacking = true;
                 yield return new WaitForSeconds(AttackDelay);
-                m_Animator.SetTrigger("Attack");
+                string _triggerToSet = "";
+                _triggerToSet = Random.Range(0,2) == 0 ? "Attack1" : "Attack2";
+                m_Animator.SetTrigger(_triggerToSet);
                 b_IsAttacking = false;
                 ActivationController.ForceCrouch = false;
             }

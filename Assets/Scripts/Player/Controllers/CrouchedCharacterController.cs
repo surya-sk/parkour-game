@@ -65,7 +65,7 @@ namespace ParkourGame.Player.Controllers
             string _triggerToSet = "";
             if(kick && b_InCombatMode)
             {
-                _triggerToSet = Random.Range(0, 1) == 0 ? "Kick1" : "Kick2";
+                _triggerToSet = Random.Range(0, 2) == 0 ? "Kick1" : "Kick2";
             }
             else
             {
@@ -76,7 +76,7 @@ namespace ParkourGame.Player.Controllers
                 }
                 else
                 {
-                    _triggerToSet = Random.Range(0, 1) == 0 ? "Attack1" : "Attack2";
+                    _triggerToSet = Random.Range(0, 2) == 0 ? "Attack1" : "Attack2";
                 }
             }
             m_Animator.Rebind();
@@ -133,7 +133,7 @@ namespace ParkourGame.Player.Controllers
             b_IsReadyToAttack = false;
             m_Animator.SetTrigger("Stun");
             transform.position = new Vector3(transform.position.x + 0.02f, transform.position.y, transform.position.z - 0.2f);
-            yield return new WaitForSeconds(Random.Range(StunTime - 1, StunTime + 4));
+            yield return new WaitForSeconds(Random.Range(StunTime - 1, StunTime + 5));
             b_IsReadyToAttack = true;
             b_IsStunned = false;
         }
