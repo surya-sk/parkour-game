@@ -12,9 +12,15 @@ namespace ParkourGame.Player.Controllers
     {
         public GameObject PlayerModel;
         public GameObject StealthPlayerModel;
+
         public Action OnCrouched;
         public Action OnUncrouched;
+        public Action OnCombatMode;
+        public Action OnReleaseCombatMode;
+        public bool ForceCrouch { get; set; }
+        public bool InCombatMode { get => m_IsInCombatMode; }
 
+        private bool m_IsInCombatMode;
         private bool m_IsCrouched;
 
         // Start is called before the first frame update
@@ -30,8 +36,19 @@ namespace ParkourGame.Player.Controllers
         // Update is called once per frame
         void Update()
         {
-            bool _isCrouched = Input.GetAxis("Crouch") == 1;
-            if(m_IsCrouched != _isCrouched)
+            if (ForceCrouch)
+                return;
+            bool _isCrouched = Input.GetAxis("Crouch") == 1 ? !m_IsInCombatMode : false;
+            SwitchCrouchState(_isCrouched);
+        }
+
+        /// <summary>
+        /// Switch between crouched and non-crouched state
+        /// </summary>
+        /// <param name="_isCrouched"></param>
+        public void SwitchCrouchState(bool _isCrouched)
+        {
+            if (m_IsCrouched != _isCrouched)
             {
                 m_IsCrouched = _isCrouched;
                 PlayerModel.SetActive(!_isCrouched);
@@ -48,6 +65,23 @@ namespace ParkourGame.Player.Controllers
                     StealthPlayerModel.transform.rotation = PlayerModel.transform.rotation;
                     OnCrouched?.Invoke();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Set if player can be in combat mode.
+        /// </summary>
+        /// <param name="b"></param>
+        public void SetCombatMode(bool b)
+        {
+            m_IsInCombatMode = b;
+            if(m_IsInCombatMode)
+            {
+                OnCombatMode?.Invoke();
+            }
+            else
+            {
+                OnReleaseCombatMode?.Invoke();
             }
         }
     }

@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8938635964458291921}
   - component: {fileID: 8938635964470150469}
+  - component: {fileID: 2105973946}
   m_Layer: 0
   m_Name: Sword1
   m_TagString: Untagged
@@ -55,9 +56,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8938635964458649265}
-  m_LocalRotation: {x: 0.67392415, y: -0.39011922, z: 0.5417564, w: -0.31643844}
-  m_LocalPosition: {x: -0.021144692, y: 1.2055764, z: 0.17888576}
-  m_LocalScale: {x: 0.04717636, y: 0.04717636, z: 0.04717636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8938635964458291929}
@@ -132,6 +133,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.67159396, y: 0.034158394, z: 0.42776453}
     m_Extent: {x: 0.11564487, y: 0.12798057, z: 0.5630467}
   m_DirtyAABB: 0
+--- !u!114 &2105973946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8938635964458649265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a196109392a55964cb39b2cdf8f82e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 1598064266}
 --- !u!1 &8938635964458649267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,9 +1165,11 @@ GameObject:
   - component: {fileID: 4963224644269466229}
   - component: {fileID: 4963224644269466228}
   - component: {fileID: 4963224644269466227}
+  - component: {fileID: 1598064266}
+  - component: {fileID: 2023895389}
   m_Layer: 0
   m_Name: Base Knight
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1223,10 +1239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a03a5e9028603459a18126936d6923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  PatrolPoints: []
   PatrolOnStart: 1
   LoopPatrolPoints: 1
   WaitTimeAtPatrolPoint: 2
@@ -1247,7 +1260,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.1
+  m_StoppingDistance: 1.2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1273,6 +1286,39 @@ MonoBehaviour:
   CrouchedPlayer: {fileID: 0}
   ActivationController: {fileID: 0}
   LineOfSightPivot: {fileID: 4963224645544384997}
+--- !u!114 &1598064266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8938635964458649289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8a47cd7378cbf4ab7561d3c6dadf9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  Damage: 5
+  AttackDelay: 20
+  StunTime: 2
+  ActivationController: {fileID: 0}
+--- !u!54 &2023895389
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8938635964458649289}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8938635964458649291
 GameObject:
   m_ObjectHideFlags: 0
@@ -7104,6 +7150,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8938635964458292707}
+  - component: {fileID: 1671030590}
+  - component: {fileID: 1671030589}
   m_Layer: 0
   m_Name: Base_mesh_skin:Base_mesh_maya_skelet:Base_mesh_maya_skelet:Character1_Ctrl_RightHandRingEffector
   m_TagString: Untagged
@@ -7126,6 +7174,32 @@ Transform:
   m_Father: {fileID: 8938635964458292245}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1671030590
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8938635964458650051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14836502, y: 0.24073428, z: 0.89191055}
+  m_Center: {x: 0.037670135, y: 0.14290205, z: 0.47811317}
+--- !u!114 &1671030589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8938635964458650051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a196109392a55964cb39b2cdf8f82e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 1598064266}
 --- !u!1 &8938635964458650053
 GameObject:
   m_ObjectHideFlags: 0
@@ -7546,6 +7620,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8938635964458292735}
+  - component: {fileID: 6448653870829844273}
+  - component: {fileID: 8651977612631104561}
   m_Layer: 0
   m_Name: Base_mesh_skin:Base_mesh_maya_skelet:Base_mesh_maya_skelet:Character1_Ctrl_RightHandMiddle1
   m_TagString: Untagged
@@ -7569,6 +7645,32 @@ Transform:
   m_Father: {fileID: 8938635964458292235}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6448653870829844273
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8938635964458650079}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.17586899, y: 0.12916732, z: 0.92938805}
+  m_Center: {x: 0.046945572, y: -0.021690488, z: 0.44699192}
+--- !u!114 &8651977612631104561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8938635964458650079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a196109392a55964cb39b2cdf8f82e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 1598064266}
 --- !u!1 &8938635964458650081
 GameObject:
   m_ObjectHideFlags: 0

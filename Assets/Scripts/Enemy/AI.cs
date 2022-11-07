@@ -20,6 +20,8 @@ namespace ParkourGame.Enemy
         public bool PatrolOnStart;
         public bool LoopPatrolPoints;
         public float WaitTimeAtPatrolPoint = 2.0f;
+
+        [Header("Player Refs")]
         public Transform DefaultPlayer;
         public Transform CrouchedPlayer;
         public ActivationController ActivationController;
@@ -34,6 +36,10 @@ namespace ParkourGame.Enemy
         private bool b_Detected;
         private VisionAgent m_VisionAgent;
         private Transform m_LastKnownPosition;
+        private Base m_Base;
+        private float m_DistanceToPlayer;
+        private float m_Magnitude;
+        private bool m_IsDead;
 
         // Start is called before the first frame update
         void Start()
@@ -58,6 +64,9 @@ namespace ParkourGame.Enemy
             ActivationController.OnCrouched += PlayerCrouched;
             ActivationController.OnUncrouched += PlayerUncrouched;
 
+            m_Base = GetComponent<Base>();
+            m_Base.OnDeath += OnDeath;
+
             if (PatrolPoints == null || PatrolPoints.Count < 1)
             {
                 Debug.LogError($"{gameObject.name} - No patrol points found!!");
@@ -72,18 +81,38 @@ namespace ParkourGame.Enemy
             {
                 Patrol(m_NavMeshAgent, PatrolPoints);
             }
+
         }
 
         // Update is called once per frame
         void Update()
         {
+            if(m_IsDead)
+            {
+                return;
+            }
+
+            m_Magnitude = m_NavMeshAgent.velocity.magnitude;
+            if(m_Magnitude > 0.5)
+            {
+                m_Animator.SetFloat("Magnitude", 1f);
+            } else
+            {
+                m_Animator.SetFloat("Magnitude", 0f);
+            }
+            
             if (b_Patrolling)
             {
-                if (Vector3.Distance(transform.position, PatrolPoints[m_CurrentPatrolIndex].position) < 1.0 && !b_PatrolPointReached)
+                if (Vector3.Distance(transform.position, PatrolPoints[m_CurrentPatrolIndex].position) < m_NavMeshAgent.stoppingDistance && !b_PatrolPointReached)
                 {
                     b_PatrolPointReached = true;
                     StartCoroutine(PatrolPointReached());
                 }
+            }
+
+            if(b_Detected)
+            {
+                m_DistanceToPlayer = Vector3.Distance(transform.position, m_Player.position);
             }
         }
 
@@ -108,8 +137,6 @@ namespace ParkourGame.Enemy
             FaceTarget(destination);
             try
             {
-                m_Animator.Rebind();
-                m_Animator.SetTrigger("Move");
                 m_NavMeshAgent.SetDestination(destination.position);
             }
             catch(Exception ex)
@@ -126,7 +153,7 @@ namespace ParkourGame.Enemy
         /// <param name="patrolPoints"></param>
         public void Patrol(NavMeshAgent agent, List<Transform> patrolPoints)
         {
-            if(!b_Detected)
+            if(!b_Detected && patrolPoints.Count > 0)
             {
                 b_Patrolling = true;
                 Move(agent, patrolPoints[m_CurrentPatrolIndex]);
@@ -138,8 +165,7 @@ namespace ParkourGame.Enemy
         /// </summary>
         public IEnumerator PatrolPointReached()
         {
-            m_Animator.Rebind();
-            m_Animator.SetTrigger("Idle");
+            //m_Animator.Rebind();
             yield return new WaitForSeconds(Random.Range(WaitTimeAtPatrolPoint - 1, WaitTimeAtPatrolPoint + 3));
             if (m_CurrentPatrolIndex == PatrolPoints.Count - 1)
             {
@@ -166,19 +192,34 @@ namespace ParkourGame.Enemy
         }
         #endregion
 
+        /// <summary>
+        /// When player is detected, move to player position and if lost, set last known position
+        /// </summary>
         public void OnPlayerDetected()
         {
             b_Detected = true;
+            ActivationController.SetCombatMode(true);
             StopCoroutine(LookForPlayer());
             b_Patrolling = false;
             Move(m_NavMeshAgent, m_Player);
+            if(m_DistanceToPlayer < m_NavMeshAgent.stoppingDistance)
+            {
+                StartCoroutine(m_Base.Attack());
+            }
             m_LastKnownPosition = m_Player;
         }
 
+        /// <summary>
+        /// Player is no longer in FOV
+        /// </summary>
         public void OnLoseDetection()
         {
-            b_Detected = false;
-            StartCoroutine(LookForPlayer());
+            if(m_DistanceToPlayer > 20.0f)
+            {
+                b_Detected = false;
+                ActivationController.SetCombatMode(false);
+                StartCoroutine(LookForPlayer());
+            }
         }
 
         private void PlayerCrouched()
@@ -191,16 +232,29 @@ namespace ParkourGame.Enemy
             m_Player = DefaultPlayer;
         }
 
+        /// <summary>
+        /// Kill enemy and disable nav mesh
+        /// </summary>
+        private void OnDeath()
+        {
+            m_Animator.Rebind();
+            m_Animator.SetTrigger("Die");
+            m_NavMeshAgent.enabled = false;
+            m_VisionAgent.enabled = false;
+            m_IsDead = true;
+        }
+
+        /// <summary>
+        /// Go to player's last known position and look around for a bit
+        /// </summary>
+        /// <returns></returns>
         IEnumerator LookForPlayer()
         {
             if(m_LastKnownPosition != null)
                 Move(m_NavMeshAgent, m_LastKnownPosition);
-            m_Animator.Rebind();
-            m_Animator.SetTrigger("LookAround");
+            m_Animator.SetBool("LookAround", true);
             yield return new WaitForSeconds(3);
-            m_Animator.ResetTrigger("LookAround");
             Patrol(m_NavMeshAgent, PatrolPoints);
-            //StopCoroutine(LookForPlayer());
             yield return new WaitForSeconds(0);
         }
     }
