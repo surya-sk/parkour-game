@@ -102,6 +102,10 @@ namespace ParkourGame.Player.Controllers
                 float _targetAngle = Mathf.Atan2(m_Movement.x, m_Movement.z) * Mathf.Rad2Deg + Camera.transform.eulerAngles.y;
                 transform.rotation = Quaternion.Euler(0, _targetAngle, 0);
                 m_Movement = Quaternion.Euler(0, _targetAngle, 0) * Vector3.forward;
+                if(!m_Controller.isGrounded)
+                {
+                    m_Movement += Physics.gravity;
+                }
                 m_Controller.Move(m_Movement * Speed * Time.deltaTime);
             }
             else
