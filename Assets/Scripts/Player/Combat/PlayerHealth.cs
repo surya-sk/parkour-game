@@ -50,7 +50,7 @@ namespace ParkourGame.Player.Combat
 
         private void Stun()
         {
-            if(Random.Range(0,1) == 0)
+            if(Random.Range(0,2) == 0)
             {
                 OnStunned?.Invoke();
             }
